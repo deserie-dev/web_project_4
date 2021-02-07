@@ -1,0 +1,16 @@
+.elements__like {
+  border: none;
+  cursor: pointer;
+  background-image: url("../../../images/like.svg");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  padding: 0px 0px 0px 0px;
+  height: 19px;
+  width: 21px;
+}
+
+.elements__like:focus {
+  background: url("../../../images/like-enabled.svg");
+  background-repeat: no-repeat;
+  outline: 0;
+}
