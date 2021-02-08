@@ -12,7 +12,7 @@ This is the first version of a responsive, and interactive page where users can 
 
 This project is deployed using github pages. Live link:
 
-<#>
+<https://deserie-dev.github.io/web_project_4/>
 
 **Figma**
 
