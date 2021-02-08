@@ -21,7 +21,7 @@
         <div class="profile__content">
           <div class="profile__details">
             <h1 class="profile__name">Jacques Cousteau</h1>
-            <button class="profile__edit" type="button" aria-label="edit button"></button>
+            <button type="button" aria-label="edit button" class="profile__edit"></button>
           </div>
           <p class="profile__occupation">Explorer</p>
         </div>
@@ -84,13 +84,13 @@
 
     <div class="modal">
       <div class="modal__container">
-        <button class="modal__close-button" type="button" aria-label="close button"></button>
+        <h3 class="modal__title">Edit profile</h3>
         <form class="modal__form" method="POST" action="#" name="editProfile">
-          <h3 class="modal__title">Edit profile</h3>
           <input  class="modal__form-control modal__form-control_input_name" type="text" placeholder="Name" name="profileNameInput">
           <input class="modal__form-control modal__form-control_input_occupation" type="text" placeholder="Occupation" name="profileOccupationInput">
           <button class="modal__form-submit" type="submit" aria-label="save button">Save</button>
         </form>
+        <button class="modal__close-button" type="button" aria-label="close button"></button>
       </div>
     </div>
 

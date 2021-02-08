@@ -1,26 +1,19 @@
 .modal__container {
-  /* position: relative;
-  background: #ffffff;
+  background-color: #ffffff;
   border-radius: 10px;
-  z-index: 2;
-  max-width: 430px;
-  width: 100%; */
   min-width: 430px;
   min-height: 330px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 0 auto;
+  margin: 0px auto;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1020px) {
   .modal__container {
     min-width: 282px;
     min-height: 322px;
-    /* width: calc(100% - 38px); */
   }
 }

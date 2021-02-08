@@ -1,19 +1,19 @@
 .modal__title {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 29px;
-  max-width: 358px;
   color: #000000;
-  margin: 0 auto 54px;
-  padding: 34px 0 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  width: 358px;
+  margin-top: 0;
+  margin-bottom: 54px;
+  text-align: left;
 }
 
 @media screen and (max-width: 1024px) {
   .modal__title {
     font-size: 18px;
     line-height: 22px;
-    width: calc(100% - 44px);
-    padding-top: 25px;
-    margin-bottom: 74px;
+    width: 238px;
+    margin-bottom: 75px;
   }
 }
