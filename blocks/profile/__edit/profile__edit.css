@@ -4,11 +4,15 @@
   background-position: center;
   background-repeat: no-repeat;
   border: 1px solid #ffffff;
-  box-sizing: border-box;
+  cursor: pointer;
   height: 24px;
   padding: 0px 0px 0px 0px;
   max-width: 24px;
   width: 100%;
+}
+
+.profile__edit:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 1024px) {
