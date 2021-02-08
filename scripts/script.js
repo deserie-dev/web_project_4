@@ -6,23 +6,24 @@ const closeForm = modal.querySelector(".modal__close-button");
 const formName = form.querySelector(".modal__form-control_input_name");
 const formOccupation = form.querySelector(".modal__form-control_input_occupation");
 const profileName = document.querySelector(".profile__name");
-const profileOccupation = document.querySelector(".profile__occupation")
+const profileOccupation = document.querySelector(".profile__occupation");
 
 function openModal() {
-  console.log("You have clicked on the element");
   modal.classList.add("modal_opened");
+  modal.style.display = 'flex';
   formName.value = profileName.textContent;
   formOccupation.value = profileOccupation.textContent;
 }
 
 function closeModal() {
   modal.classList.remove("modal_opened");
+  modal.style.display = "none";
 }
 
 edit.addEventListener("click", openModal);
 closeForm.addEventListener("click", closeModal);
 
-function saveProfile(){
+function saveProfile() {
   profileName.textContent = formName.value;
   profileOccupation.textContent = formOccupation.value;
   closeModal();
