@@ -14,7 +14,7 @@
 }
 
 .elements__like:focus {
-  background: url("../../../images/like-enabled.svg");
+  background: url("../../../images/likeenabled.svg");
   background-repeat: no-repeat;
   outline: 0;
 }
