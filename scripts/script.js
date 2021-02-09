@@ -10,14 +10,12 @@ const profileOccupation = document.querySelector(".profile__occupation");
 
 function openModal() {
   modal.classList.add("modal_opened");
-  modal.style.display = 'flex';
   formName.value = profileName.textContent;
   formOccupation.value = profileOccupation.textContent;
 }
 
 function closeModal() {
   modal.classList.remove("modal_opened");
-  modal.style.display = "none";
 }
 
 edit.addEventListener("click", openModal);
