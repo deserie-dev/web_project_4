@@ -8,12 +8,10 @@
 .elements {
   margin: 0px auto 0px auto;
   max-width: 880px;
-  /* width: calc(100% * (880px / 1280px)); */
 }
 
 @media screen and (max-width: 1024px) {
   .elements {
-    /* width: calc(100% * (282px / 320px)); */
     width: calc(100% - 38px);
     margin: 0px auto 50px auto;
   }
