@@ -1,7 +1,14 @@
 .root {
   font-family: "Inter", Arial, sans-serif;
   background-color: #000000;
+  box-sizing: border-box;
   margin: 0px auto 0px auto;
   min-width: 320px;
   justify-content: center;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
