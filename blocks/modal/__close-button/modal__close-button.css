@@ -19,7 +19,7 @@
   transform: rotate(45deg);
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 425px) {
   .modal__close-button {
     top: -54px;
     right: 5px;

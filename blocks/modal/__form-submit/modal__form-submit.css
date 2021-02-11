@@ -9,18 +9,20 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  padding: 0;
+  margin: 0px auto 36.51px auto;
+  padding: 0px 0px 0px 0px;
 }
 
 .modal__form-submit:hover {
   opacity: 0.8;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 425px) {
   .modal__form-submit {
-    height: 46px;
-    width: 238px;
     font-size: 14px;
     line-height: 17px;
+    width: 238px;
+    height: 46px;
+    margin-bottom: 25px;
   }
 }

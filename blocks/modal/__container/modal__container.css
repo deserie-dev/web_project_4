@@ -1,19 +1,19 @@
 .modal__container {
   background-color: #ffffff;
   border-radius: 10px;
-  min-width: 430px;
-  margin: 0px auto;
+  box-sizing: border-box;
+  max-width: 430px;
+  width: 100%;
   position: relative;
-  padding: 34px 36px 36px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 425px) {
   .modal__container {
-    min-width: 282px;
-    padding: 25px 22px 25px 22px;
+    width: calc(100% - 38px);
+    max-width: 282px;
   }
 }
