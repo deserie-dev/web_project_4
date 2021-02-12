@@ -5,6 +5,7 @@
   background-repeat: no-repeat;
   border: 1px solid #ffffff;
   cursor: pointer;
+  display: flex;
   height: 24px;
   padding: 0px 0px 0px 0px;
   max-width: 24px;
