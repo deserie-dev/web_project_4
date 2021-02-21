@@ -16,6 +16,7 @@
     </header>
 
     <main class="content">
+
       <section class="profile">
         <img class="profile__image" src="./images/jacquescousteau.jpg" alt="Profile Picture">
         <div class="profile__content">
@@ -28,53 +29,9 @@
         <button class="profile__add" type="button" aria-label="add button"></button>
       </section>
 
-      <section class="elements">
-        <ul class="elements__container">
-          <li class="elements__item">
-            <img class="elements__image" src="./images/yosemite.jpg" alt="Yosemite Valley">
-            <div class="elements__heading">
-              <h2 class="elements__title">Yosemite Valley</h2>
-              <button class="elements__like" type="button" aria-label="like button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__image" src="./images/lakelouise.png" alt="Lake Louise">
-            <div class="elements__heading">
-              <h2 class="elements__title">Lake Louise</h2>
-              <button class="elements__like" type="button" aria-label="like button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__image" src="./images/baldmountains.png" alt="Bald Mountains">
-            <div class="elements__heading">
-              <h2 class="elements__title">Bald Mountains</h2>
-              <button class="elements__like" type="button" aria-label="like button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__image" src="./images/latemar.png" alt="Latemar">
-            <div class="elements__heading">
-              <h2 class="elements__title">Latemar</h2>
-              <button class="elements__like" type="button" aria-label="like button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__image" src="./images/vanoise.png" alt="Vanoise National Park">
-            <div class="elements__heading">
-              <h2 class="elements__title">Vanoise National Park</h2>
-              <button class="elements__like" type="button" aria-label="like button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__image" src="./images/lagodibraies.png" alt="Lago di Braies">
-            <div class="elements__heading">
-              <h2 class="elements__title">Lago di Braies</h2>
-              <button class="elements__like" type="button" aria-label="like button"></button>
-            </div>
-          </li>
-        </ul>
+      <section>
+        <ul class="elements__container"></ul>
       </section>
-
 
     </main>
 
@@ -105,7 +62,18 @@
         <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
       </div>
     </div>
-  
+
+    <template class="card-template">
+        <li class="elements__item">
+          <img class="elements__image" src="#" alt="Place image">
+          <button class="delete-button" type="button" aria-label="delete button"></button>
+          <div class="elements__heading">
+            <h2 class="elements__title"></h2>
+            <button class="elements__like" type="button" aria-label="like button"></button>
+          </div>
+        </li>
+    </template>
+    
   <script src="./scripts/script.js"></script>
 </body>
 </html>
