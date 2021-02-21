@@ -17,3 +17,7 @@
     grid-template-columns: repeat(auto-fit, 282px);
   }
 }
+
+/* Once I used JavaScript to render images, this property stopped working: 
+   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr)); 
+   The <ul> tag had lost its styling. Also had to add media query*/

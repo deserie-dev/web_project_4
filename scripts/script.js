@@ -60,7 +60,9 @@ addButton.addEventListener("click", function() {
   formImage.value = "";
 });
 
-placeCloseButton.addEventListener("click", closeModal);
+placeCloseButton.addEventListener("click", () => {
+  createForm.classList.remove("modal_opened");
+});
 
 //The six cards rendered by JavaScript when page is loaded
 const initialCards = [
@@ -90,19 +92,30 @@ const initialCards = [
   }
 ];
 
+//On each iteration of the above array, add a card. Data refers to each object in the array, comprising name and link
+const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
+const list = document.querySelector(".elements__container");
+
 initialCards.forEach(data => {
-  const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
+  //Clone the content of the template tag 
   const cardElement = cardTemplate.cloneNode(true);
 
   const cardImage = cardElement.querySelector(".elements__image");
   const cardTitle = cardElement.querySelector(".elements__title");
   const cardLikeButton = cardElement.querySelector(".elements__like");
   const cardDeleteButton = cardElement.querySelector(".delete-button");
-
+  // add content
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
 
-  const list = document.querySelector(".elements__container");
+  cardLikeButton.addEventListener("click", () => {
 
+  });
+
+  cardDeleteButton.addEventListener("click", () => {
+
+  });
+
+  // make it appear on the page
   list.prepend(cardElement);
 });
