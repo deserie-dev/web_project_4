@@ -4,8 +4,10 @@
 @import url("./__item/elements__item.css");
 @import url("./__like/elements__like.css");
 @import url("./__title/elements__title.css");
+@import url("./__delete-button/elements__delete-button.css");
 
 .elements {
+  position: relative;
   margin: 0px auto 0px auto;
   max-width: 880px;
 }
