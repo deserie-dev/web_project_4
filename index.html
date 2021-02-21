@@ -84,8 +84,8 @@
 
     <div class="modal">
       <div class="modal__container">
-        <h3 class="modal__title">Edit profile</h3>
-        <form class="modal__form" name="editProfile">
+        <form class="modal__form edit-form" name="edit-profile">
+          <h3 class="modal__title">Edit profile</h3>
           <input  class="modal__form-control modal__form-control_input_name" type="text" placeholder="Name" name="profileNameInput" required>
           <input class="modal__form-control modal__form-control_input_occupation" type="text" placeholder="Occupation" name="profileOccupationInput" required>
           <button class="modal__form-submit" type="submit" aria-label="save button">Save</button>
@@ -94,8 +94,17 @@
       </div>
     </div>
 
-  </div>
-
+    <div class="modal create-form">
+      <div class="modal__container">
+        <form class="modal__form" name="create-form">
+          <h3 class="modal__title">New Place</h3>
+          <input class="modal__form-control modal__form-control_input_title" type="text" placeholder="Title" name="titleInput" required>
+          <input class="modal__form-control modal__form-control_input_image" type="text" placeholder="Image Link" name="imageLinkInput" required>
+          <button class="modal__form-submit" type="submit" aria-label="save button">Save</button>
+        </form>
+        <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
+      </div>
+    </div>
   
   <script src="./scripts/script.js"></script>
 </body>
