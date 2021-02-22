@@ -3,6 +3,7 @@
 @import url("./__heading/elements__heading.css");
 @import url("./__item/elements__item.css");
 @import url("./__like/elements__like.css");
+@import url("./__like/_active/elements__like_active.css");
 @import url("./__title/elements__title.css");
 @import url("./__delete-button/elements__delete-button.css");
 

@@ -39,7 +39,7 @@
       <p class="footer__author">&copy; 2021 Around The U.S.</p>
     </footer>
 
-    <div class="modal">
+    <div class="modal modal_type_edit">
       <div class="modal__container">
         <form class="modal__form edit-form" name="edit-profile">
           <h3 class="modal__title">Edit profile</h3>
@@ -51,9 +51,9 @@
       </div>
     </div>
 
-    <div class="modal create-form">
+    <div class="modal modal_type_create">
       <div class="modal__container">
-        <form class="modal__form" name="create-form">
+        <form class="modal__form addCard-form" name="create-form">
           <h3 class="modal__title">New Place</h3>
           <input class="modal__form-control modal__form-control_input_title" type="text" placeholder="Title" name="titleInput" required>
           <input class="modal__form-control modal__form-control_input_image" type="url" placeholder="Image Link" name="imageLinkInput" required>
@@ -63,13 +63,11 @@
       </div>
     </div>
 
-    <div class="modal modal_type_image">
-      <div class="modal__container modal__container_type_image">
-        <button class="modal__close-button  modal__close-button_image" type="button" aria-label="close button"></button>
-        <figure>
-          <img class="modal__image" src="#" alt="">
-          <figcaption class="modal__image-title"></figcaption>
-        </figure>
+    <div class="modal modal_type_preview">
+      <div class="modal__container modal__container_preview">
+        <button class="modal__close-button  modal__close-button_preview" type="button" aria-label="close button"></button>
+        <img class="modal__image" src="#" alt="">
+        <p class="modal__image-title"></p>
       </div>
     </div>
 

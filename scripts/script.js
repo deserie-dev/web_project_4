@@ -1,9 +1,9 @@
-const modal = document.querySelector(".modal");
+const modal = document.querySelector(".modal_type_edit");
 const edit = document.querySelector(".profile__edit");
 const form = document.querySelector(".modal__form");
 const closeForm = modal.querySelector(".modal__close-button");
-const imageModalWindow = document.querySelector(".modal_type_image");
-const imageCloseButton = document.querySelector("modal__close-button_image");
+const imageModalWindow = document.querySelector(".modal_type_preview");
+const imageCloseButton = document.querySelector(".modal__close-button_preview");
 
 
 //Variables for the edit profile section
@@ -15,13 +15,59 @@ const profileOccupation = document.querySelector(".profile__occupation");
 
 
 //Variables for the add new card/place section
+const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
 const addButton = document.querySelector(".profile__add");
-const createForm = document.querySelector(".create-form");
+const createForm = document.querySelector(".modal_type_create");
+const addForm = document.querySelector(".addCard-form");
 const formTitle = form.querySelector(".modal__form-control_input_title");
 const formImage = form.querySelector(".modal__form-control_input_image");
 const placeCloseButton = document.querySelector(".modal__close-button_place");
+const list = document.querySelector(".elements__container");
 
-//The six cards rendered by JavaScript when page is loaded
+//Function to open modal
+function openModal(modalWindow) {
+  modalWindow.classList.add("modal_opened");
+}
+
+//Function to close modal
+function closeModal(modalWindow) {
+  modalWindow.classList.remove("modal_opened");
+}
+
+//When edit button clicked, open "Edit Profile" modal. Values for each input field.
+edit.addEventListener("click", function() {
+  formName.value = profileName.textContent;
+  formOccupation.value = profileOccupation.textContent;
+  openModal(modal);
+});
+
+// Close the modal when the close button is clicked.
+// closeForm.addEventListener("click", closeModal);
+closeForm.addEventListener("click", function() {
+  closeModal(modal);
+});
+
+//Update Profile section based on user input then close the popup.
+form.addEventListener("submit", function(evt) {
+  profileName.textContent = formName.value;
+  profileOccupation.textContent = formOccupation.value;
+  closeModal();
+  evt.preventDefault();
+})
+
+//Create functionality for the add button
+addButton.addEventListener("click", function() {
+  createForm.classList.add("modal_opened");  
+  formTitle.value = "";
+  formImage.value = "";
+  evt.preventDefault
+});
+
+placeCloseButton.addEventListener("click", () => {
+  createForm.classList.remove("modal_opened");
+});
+
+//The six cards rendered by JavaScript when page is first loaded
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -49,96 +95,94 @@ const initialCards = [
   }
 ];
 
-//On each iteration of the above array, add a card. Data refers to each object in the array, comprising name and link
-const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
-
-const list = document.querySelector(".elements__container");
-
-initialCards.forEach(data => {
-  //Clone the content of the template tag 
+function addNewPlace(cardLink, cardName) {
   const cardElement = cardTemplate.cloneNode(true);
 
   const cardImage = cardElement.querySelector(".elements__image");
   const cardTitle = cardElement.querySelector(".elements__title");
-  const cardLikeButton = cardElement.querySelector(".elements__like");
-  const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
-  // add content
-  cardTitle.textContent = data.name;
-  cardImage.src = data.link;
+  cardTitle.textContent = cardName;
+  cardImage.src = cardLink;
 
-  cardLikeButton.addEventListener("click", () => {    
-  });
-//Functionality for the delete button using closest() method
-  cardDeleteButton.addEventListener("click", () => {
-     const deleteCard = cardDeleteButton.closest(".elements__item");
-     deleteCard.remove(); 
-  });
-
-  cardImage.addEventListener("click", () => {
-    const modalImage = imageModalWindow.querySelector(".modal__image");
-    const modalImageTitle = imageModalWindow.querySelector(".modal__image-title");
-
-    imageModalWindow.classList.add("modal_opened"); 
-    modalImage.src = data.link;
-    modalImageTitle.textContent = data.name;
-  });
-
-  // make it appear on the page
   list.prepend(cardElement);
-});
 
-//Function to open modal
-function openModal() {
-  modal.classList.add("modal_opened");
+  const cardLikeButton = cardElement.querySelector(".elements__like");
+  cardLikeButton.addEventListener("click", function (evt) {  
+    evt.target.classList.toggle("elements__like_active") 
+  });
+
+  //Functionality for the delete button
+  const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
+  cardDeleteButton.addEventListener("click", () => cardElement.remove());
+
+  const modalImage = document.querySelector(".elements__image");
+  modalImage.addEventListener("click", () => {
+    imageModalWindow.querySelector(".modal__image").src = cardLink;
+    imageModalWindow.querySelector(".modal__image-title").textContent = cardName
+    openModal(imageModalWindow);
+    // imageModalWindow.classList.add("modal_opened");
+  });
+
+  imageCloseButton.addEventListener("click", function() {
+    closeModal(imageModalWindow);
+  })
 }
 
-
-//Function to close modal
-function closeModal() {
-  modal.classList.remove("modal_opened");
-}
-
-//When edit button clicked, open "Edit Profile" modal. Values for each input field.
-edit.addEventListener("click", function() {
-  openModal();
-  editForm.classList.add("modal_opened");
-  formName.value = profileName.textContent;
-  formOccupation.value = profileOccupation.textContent;
+initialCards.forEach(card => {
+    addNewPlace(card.link, card.name);
 });
 
-// Close the modal when the close button is clicked.
-closeForm.addEventListener("click", closeModal);
 
 
-//Update site when text entered into input fields then close the popup.
-function saveProfile() {
-  profileName.textContent = formName.value;
-  profileOccupation.textContent = formOccupation.value;
-  closeModal();
-  event.preventDefault();
-}
+// addForm.addEventListener("submit", function() {
+//   addNewPlace(formTitle.value, formImage.value);
+//   closeModal(createForm);
 
-form.addEventListener("submit", saveProfile);
+//   formImage.value = "";
+//   formTitle.value = "";
 
+//   evt.preventDefault();
+// })
 
-//Create new place functionality
-addButton.addEventListener("click", function() {
-  createForm.classList.add("modal_opened");  
-  formTitle.value = "";
-  formImage.value = "";
-});
+//On each iteration of the above array, add a card. Data refers to each object in the array, comprising name and link
+// const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
 
-placeCloseButton.addEventListener("click", () => {
-  createForm.classList.remove("modal_opened");
-});
+// const list = document.querySelector(".elements__container");
+
+// initialCards.forEach(data => {
+  //Clone the content of the template tag 
+  // const cardElement = cardTemplate.cloneNode(true);
+
+  // const cardImage = cardElement.querySelector(".elements__image");
+  // const cardTitle = cardElement.querySelector(".elements__title");
+  // const cardLikeButton = cardElement.querySelector(".elements__like");
+  // const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
+  // add content
+  // cardTitle.textContent = data.name;
+  // cardImage.src = data.link;
+
+  // cardLikeButton.addEventListener("click", function (evt) {  
+  //   evt.target.classList.toggle("elements__like_active")  
+  // });
+//Functionality for the delete button
+//   cardDeleteButton.addEventListener("click", () => cardElement.remove());
+
+//   list.append(cardElement);
+// });
 
 //Create new place based on user input
-function createNewPlace() {
-  newPlace.name = formTitle.value;
-  newPlace.link = formImage.value;
-  closeModal();
-  evt.preventDefault();
-  cardElement.prepend(list);
-}
-form.addEventListener("submit", createNewPlace);
+// function createNewPlace() {
+//   newPlace.name = formTitle.value;
+//   newPlace.link = formImage.value;
+//   closeModal();
+  // evt.preventDefault();
+//   list.prepend(cardElement);
+// }
+// form.addEventListener("submit", createNewPlace);
 
+// const modalImage = document.querySelector(".elements__image");
+//   modalImage.addEventListener("click", (place) => {
+//     imageModalWindow.classList.add("modal_opened");
+//     imageModalWindow.querySelector(".modal__image").src = place.link;
+//     imageModalWindow.querySelector(".modal__image-title").textContent = place.name
+//     openModal(imageModalWindow);
+//   });

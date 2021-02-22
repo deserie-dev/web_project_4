@@ -12,9 +12,3 @@
   cursor: pointer;
   opacity: 0.5;
 }
-
-.elements__like:focus {
-  background: url("../../../images/likeenabled.svg");
-  background-repeat: no-repeat;
-  outline: 0;
-}

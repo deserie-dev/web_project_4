@@ -1,0 +1,5 @@
+.elements__like_active {
+  background: url("../../../images/likeenabled.svg");
+  background-repeat: no-repeat;
+  outline: 0;
+}
