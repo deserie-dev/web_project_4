@@ -19,8 +19,8 @@ const cardTemplate = document.querySelector(".card-template").content.querySelec
 const addButton = document.querySelector(".profile__add");
 const createForm = document.querySelector(".modal_type_create");
 const addForm = document.querySelector(".addCard-form");
-const formTitle = form.querySelector(".modal__form-control_input_title");
-const formImage = form.querySelector(".modal__form-control_input_image");
+const formTitle = document.querySelector(".modal__form-control_input_title");
+const formImage = document.querySelector(".modal__form-control_input_image");
 const placeCloseButton = document.querySelector(".modal__close-button_place");
 const list = document.querySelector(".elements__container");
 
@@ -65,20 +65,6 @@ addButton.addEventListener("click", function(evt) {
 placeCloseButton.addEventListener("click", () => {
   createForm.classList.remove("modal_opened");
 });
-
-// addForm.addEventListener("submit", function(evt) {
-//   evt.preventDefault();
-//   const newPlaceTitle = formTitle.value;
-//   const newPlaceImage = formImage.value;
-
-//   const newPlaceCard ={
-//     name: `${newPlaceTitle}`,
-//     link: `${newPlaceImage}`
-//   };
-//   const newCardElement = addNewPlace(newPlaceCard);
-//   list.prepend(newCardElement);
-//   closeModal(imageModalWindow);
-// });
 
 //The six cards rendered by JavaScript when page is first loaded
 const initialCards = [
@@ -143,20 +129,14 @@ initialCards.forEach(card => {
     addNewPlace(card.link, card.name);
 });
 
+function saveNewPlace() {
+  list.prepend(addNewPlace(formTitle.value, formImage.value));
+  formTitle.value = "";
+  formImage.value = "";
+}
+
 addForm.addEventListener("submit", function(evt) {
-  addNewPlace(formTitle.value, formImage.value);
   createForm.classList.remove("modal_opened");
-
-  const newPlaceTitle = formTitle.value;
-  const newPlaceImage = formImage.value;
-
+  saveNewPlace();
   evt.preventDefault();
-
-  const newPlaceCard ={
-    name: `${newPlaceTitle}`,
-    link: `${newPlaceImage}`
-  };
-  const newCardElement = addNewPlace(newPlaceCard);
-  list.prepend(newCardElement);
-  closeModal(imageModalWindow);
 });
