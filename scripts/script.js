@@ -35,37 +35,24 @@ function closeModal(modalWindow) {
 }
 
 //When edit button clicked, open "Edit Profile" modal. Values for each input field.
-// edit.addEventListener("click", function() {
-//   formName.value = profileName.textContent;
-//   formOccupation.value = profileOccupation.textContent;
-//   openModal(modal);
-// });
-
-// Close the modal when the close button is clicked.
-// closeForm.addEventListener("click", closeModal);
-
-function openProfileModal() {
+edit.addEventListener("click", function() {
   formName.value = profileName.textContent;
   formOccupation.value = profileOccupation.textContent;
   openModal(modal);
-}
+});
 
-function profileFormSubmit(evt) {
-    evt.preventDefault();
-    profileName.textContent = formName.value;
-    profileOccupation.textContent = formOccupation.value;
-}
-
-edit.addEventListener("click", openProfileModal);
-
-modal.addEventListener("submit", openProfileModal);
-
-closeForm.addEventListener("click", function() {
-  closeModal(modal);
+//Close the modal when the close button is clicked.
+closeForm.addEventListener("click", function(){
+  closeModal(modal)
 });
 
 //Update Profile section based on user input then close the popup.
-
+form.addEventListener("submit", function(evt) {
+  profileName.textContent = formName.value;
+  profileOccupation.textContent = formOccupation.value;
+  closeModal(modal)
+  evt.preventDefault();
+})
 
 //Create functionality for the add button
 addButton.addEventListener("click", function(evt) {
