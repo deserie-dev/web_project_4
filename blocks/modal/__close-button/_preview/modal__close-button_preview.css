@@ -1,0 +1,9 @@
+.modal__close-button_preview {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  margin: 0px;
+  padding: 0px;
+  width: 40px;
+  height: 40px;
+}
