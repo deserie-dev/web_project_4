@@ -142,3 +142,21 @@ function addNewPlace(cardLink, cardName) {
 initialCards.forEach(card => {
     addNewPlace(card.link, card.name);
 });
+
+addForm.addEventListener("submit", function(evt) {
+  addNewPlace(formTitle.value, formImage.value);
+  createForm.classList.remove("modal_opened");
+
+  const newPlaceTitle = formTitle.value;
+  const newPlaceImage = formImage.value;
+
+  evt.preventDefault();
+
+  const newPlaceCard ={
+    name: `${newPlaceTitle}`,
+    link: `${newPlaceImage}`
+  };
+  const newCardElement = addNewPlace(newPlaceCard);
+  list.prepend(newCardElement);
+  closeModal(imageModalWindow);
+});
