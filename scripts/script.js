@@ -57,9 +57,6 @@ form.addEventListener("submit", function(evt) {
 //Create functionality for the add button
 addButton.addEventListener("click", function(evt) {
   createForm.classList.add("modal_opened");  
-  // formTitle.value = "";
-  // formImage.value = "";
-  // evt.preventDefault
 });
 
 placeCloseButton.addEventListener("click", () => {
@@ -93,7 +90,7 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg"
   }
 ];
-
+//Render initial cards using JS
 function addNewPlace(cardLink, cardName) {
   const cardElement = cardTemplate.cloneNode(true);
 
@@ -107,10 +104,10 @@ function addNewPlace(cardLink, cardName) {
   cardLikeButton.addEventListener("click", function () {  
     cardLikeButton.classList.add("elements__like_active") 
   });
-
+//Functionality for the trash button
   const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
   cardDeleteButton.addEventListener("click", () => cardElement.remove());
-
+//Preview modal
   const modalImage = document.querySelector(".elements__image");
   modalImage.addEventListener("click", () => {
     imageModalWindow.querySelector(".modal__image").src = cardLink;
@@ -129,6 +126,7 @@ initialCards.forEach(card => {
     addNewPlace(card.link, card.name);
 });
 
+//Create new Place Card based on user input
 function saveNewPlace() {
   list.prepend(addNewPlace(formTitle.value, formImage.value));
   formTitle.value = "";

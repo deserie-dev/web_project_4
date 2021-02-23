@@ -1,5 +1,5 @@
 .modal_type_image {
-  background-color: black;
+  background-color: transparent;
   display: flex;
   /*display: none;*/
   visibility: hidden;
