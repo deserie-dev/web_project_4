@@ -128,9 +128,9 @@ initialCards.forEach(card => {
 
 //Create new Place Card based on user input
 function saveNewPlace() {
-  list.prepend(addNewPlace(formTitle.value, formImage.value));
-  formTitle.value = "";
+  list.prepend(addNewPlace(formImage.value, formTitle.value));
   formImage.value = "";
+  formTitle.value = "";
 }
 
 addForm.addEventListener("submit", function(evt) {
