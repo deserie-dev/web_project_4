@@ -29,12 +29,49 @@ const profileOccupation = document.querySelector(".profile__occupation");
 //Variables for the add new card/place section
 const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
 
+//Image Preview modal
+const imagePreviewModal = imageModalWindow.querySelector(".modal__image");
+const imagePreviewModalText = imageModalWindow.querySelector(".modal__image-title");
+
 //Elements/cards section in HTML where card template is appended to.
 const list = document.querySelector(".elements__container");
 
 ////////////////
 //Functions
 ///////////////
+
+//Render initial cards using JS
+function addNewPlace(cardLink, cardName) {
+  const cardElement = cardTemplate.cloneNode(true);
+
+  const modalImage = cardElement.querySelector(".elements__image");
+  const cardImage = cardElement.querySelector(".elements__image");
+  const cardTitle = cardElement.querySelector(".elements__title");
+  cardTitle.textContent = cardName;
+  cardImage.src = cardLink;
+  cardImage.alt = cardName
+    
+//Functionality for the like button
+  const cardLikeButton = cardElement.querySelector(".elements__like");
+  cardLikeButton.addEventListener("click", likeButtonEnabled);
+//Functionality for the trash button
+  const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
+  cardDeleteButton.addEventListener("click", () => cardElement.remove());
+
+//Preview modal  
+  modalImage.addEventListener("click", () => {
+    imagePreviewModal.src = cardLink;
+    imagePreviewModal.alt = cardName;
+    imagePreviewModalText.textContent = cardName;
+    openModal(imageModalWindow);
+  });
+
+  imageCloseButton.addEventListener("click", function() {
+    closeModal(imageModalWindow);
+  });
+
+  return cardElement;
+};
 
 //Open modal
 function openModal(modalWindow) {
@@ -44,6 +81,11 @@ function openModal(modalWindow) {
 //Close modal
 function closeModal(modalWindow) {
   modalWindow.classList.remove("modal_opened");
+}
+
+//When the button is clicked, the target property gets the button element
+function likeButtonEnabled (evt) {
+  evt.target.classList.toggle("elements__like_active", true); 
 }
 
 //When edit button clicked, open "Edit Profile" modal. Values for each input field.
@@ -75,52 +117,23 @@ placeCloseButton.addEventListener("click", () => {
   createForm.classList.remove("modal_opened");
 });
 
+// Code responsible for the initial display of the cards.
 
-//Render initial cards using JS
-function addNewPlace(cardLink, cardName) {
-  const cardElement = cardTemplate.cloneNode(true);
-
-  const cardImage = cardElement.querySelector(".elements__image");
-  const cardTitle = cardElement.querySelector(".elements__title");
-  cardTitle.textContent = cardName;
-  cardImage.src = cardLink;
-  list.prepend(cardElement);  
-
-  const cardLikeButton = cardElement.querySelector(".elements__like");
-  cardLikeButton.addEventListener("click", function () {  
-    cardLikeButton.classList.add("elements__like_active") 
-  });
-//Functionality for the trash button
-  const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
-  cardDeleteButton.addEventListener("click", () => cardElement.remove());
-//Preview modal
-  const modalImage = document.querySelector(".elements__image");
-  modalImage.addEventListener("click", () => {
-    imageModalWindow.querySelector(".modal__image").src = cardLink;
-    imageModalWindow.querySelector(".modal__image-title").textContent = cardName;
-    openModal(imageModalWindow);
-  });
-
-  imageCloseButton.addEventListener("click", function() {
-    closeModal(imageModalWindow);
-  });
-
-  return cardElement;
-};
-
-initialCards.forEach(card => {
-    addNewPlace(card.link, card.name);
+initialCards.forEach((card) => {
+    const placeCard = addNewPlace(card.link, card.name);
+    list.prepend(placeCard);    
 });
+
 
 //Create new Place Card based on user input
-function saveNewPlace() {
-  list.prepend(addNewPlace(formImage.value, formTitle.value));
-  formImage.value = "";
-  formTitle.value = "";
+function saveNewPlace(evt) {
+  evt.preventDefault();
+  const newPlaceCard = addNewPlace(`${formImage.value}`, formTitle.value);
+  list.prepend(newPlaceCard);
+  closeModal(createForm);
 }
 
-addForm.addEventListener("submit", function(evt) {
-  closeModal(createForm);
-  saveNewPlace();
-  evt.preventDefault();
-});
+addForm.addEventListener("submit", saveNewPlace);
+
+
+
