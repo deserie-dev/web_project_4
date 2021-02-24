@@ -1,56 +1,68 @@
-const modal = document.querySelector(".modal_type_edit");
-const edit = document.querySelector(".profile__edit");
-const form = document.querySelector(".modal__form");
-const closeForm = modal.querySelector(".modal__close-button");
+import { initialCards } from "./initialcards.js";
+
+//Modals
+const profileModal = document.querySelector(".modal_type_edit");
+const createForm = document.querySelector(".modal_type_create");
 const imageModalWindow = document.querySelector(".modal_type_preview");
+
+//Buttons
+const profileEditButton = document.querySelector(".profile__edit");
+const addButton = document.querySelector(".profile__add");
+const profileCloseButton = profileModal.querySelector(".modal__close-button_profile");
 const imageCloseButton = document.querySelector(".modal__close-button_preview");
+const placeCloseButton = document.querySelector(".modal__close-button_place");
 
+//Forms
+const profileForm = document.querySelector(".modal__form_type_profile");
+const addForm = document.querySelector(".addCard-form");
 
-//Variables for the edit profile section
-const formName = form.querySelector(".modal__form-control_input_name");
-const formOccupation = form.querySelector(".modal__form-control_input_occupation");
-const editForm = document.querySelector(".edit-form");
+//Form Inputs
+const formName = profileForm.querySelector(".modal__form-control_input_name");
+const formOccupation = profileForm.querySelector(".modal__form-control_input_occupation");
+const formTitle = document.querySelector(".modal__form-control_input_title");
+const formImage = document.querySelector(".modal__form-control_input_image");
+
+//Profile Section Info
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
 
-
 //Variables for the add new card/place section
 const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
-const addButton = document.querySelector(".profile__add");
-const createForm = document.querySelector(".modal_type_create");
-const addForm = document.querySelector(".addCard-form");
-const formTitle = document.querySelector(".modal__form-control_input_title");
-const formImage = document.querySelector(".modal__form-control_input_image");
-const placeCloseButton = document.querySelector(".modal__close-button_place");
+
+//Elements/cards section in HTML where card template is appended to.
 const list = document.querySelector(".elements__container");
 
-//Function to open modal
+////////////////
+//Functions
+///////////////
+
+//Open modal
 function openModal(modalWindow) {
   modalWindow.classList.add("modal_opened");
 }
 
-//Function to close modal
+//Close modal
 function closeModal(modalWindow) {
   modalWindow.classList.remove("modal_opened");
 }
 
 //When edit button clicked, open "Edit Profile" modal. Values for each input field.
-edit.addEventListener("click", function() {
+profileEditButton.addEventListener("click", function() {
   formName.value = profileName.textContent;
   formOccupation.value = profileOccupation.textContent;
-  openModal(modal);
+  openModal(profileModal);
 });
 
 //Close the modal when the close button is clicked.
-closeForm.addEventListener("click", function(){
-  closeModal(modal)
+profileCloseButton.addEventListener("click", function(){
+  closeModal(profileModal)
 });
 
 //Update Profile section based on user input then close the popup.
-form.addEventListener("submit", function(evt) {
+profileForm.addEventListener("submit", function(evt) {
   profileName.textContent = formName.value;
   profileOccupation.textContent = formOccupation.value;
-  closeModal(modal)
+  closeModal(profileModal)
   evt.preventDefault();
 })
 
@@ -63,33 +75,7 @@ placeCloseButton.addEventListener("click", () => {
   createForm.classList.remove("modal_opened");
 });
 
-//The six cards rendered by JavaScript when page is first loaded
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
+
 //Render initial cards using JS
 function addNewPlace(cardLink, cardName) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -134,7 +120,7 @@ function saveNewPlace() {
 }
 
 addForm.addEventListener("submit", function(evt) {
-  createForm.classList.remove("modal_opened");
+  closeModal(createForm);
   saveNewPlace();
   evt.preventDefault();
 });
