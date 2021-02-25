@@ -66,19 +66,15 @@ function addNewPlace(cardLink, cardName) {
     openModal(imageModalWindow);
   });
 
-  imageCloseButton.addEventListener("click", function() {
-    closeModal(imageModalWindow);
-  });
-
   return cardElement;
 };
 
-//Open modal
+//Open a modal
 function openModal(modalWindow) {
   modalWindow.classList.add("modal_opened");
 }
 
-//Close modal
+//Close a modal
 function closeModal(modalWindow) {
   modalWindow.classList.remove("modal_opened");
 }
@@ -95,11 +91,6 @@ profileEditButton.addEventListener("click", function() {
   openModal(profileModal);
 });
 
-//Close the modal when the close button is clicked.
-profileCloseButton.addEventListener("click", function(){
-  closeModal(profileModal)
-});
-
 //Update Profile section based on user input then close the popup.
 profileForm.addEventListener("submit", function(evt) {
   profileName.textContent = formName.value;
@@ -108,22 +99,12 @@ profileForm.addEventListener("submit", function(evt) {
   evt.preventDefault();
 })
 
-//Create functionality for the add button
-addButton.addEventListener("click", function(evt) {
-  createForm.classList.add("modal_opened");  
-});
-
-placeCloseButton.addEventListener("click", () => {
-  createForm.classList.remove("modal_opened");
-});
-
 // Code responsible for the initial display of the cards.
 
 initialCards.forEach((card) => {
     const placeCard = addNewPlace(card.link, card.name);
     list.prepend(placeCard);    
 });
-
 
 //Create new Place Card based on user input
 function saveNewPlace(evt) {
@@ -133,7 +114,16 @@ function saveNewPlace(evt) {
   closeModal(createForm);
 }
 
+//////////////////
+//Event Handlers
+//////////////////
+
 addForm.addEventListener("submit", saveNewPlace);
 
+addButton.addEventListener("click", () => openModal(createForm));
 
+profileCloseButton.addEventListener("click", () => closeModal(profileModal));
 
+placeCloseButton.addEventListener("click", () => closeModal(createForm));
+
+imageCloseButton.addEventListener("click", () => closeModal(imageModalWindow));
