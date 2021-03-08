@@ -43,7 +43,9 @@
         <form class="modal__form modal__form_type_profile" name="edit-profile">
           <h3 class="modal__title">Edit profile</h3>
           <input  class="modal__form-control modal__form-control_input_name" type="text" placeholder="Name" name="profileNameInput" required>
+          <span id="profileName-error" class="modal__error"></span>
           <input class="modal__form-control modal__form-control_input_occupation" type="text" placeholder="Occupation" name="profileOccupationInput" required>
+          <span id="profileOccupation-error" class="modal__error"></span>
           <button class="modal__form-submit" type="submit" aria-label="save button">Save</button>
         </form>
         <button class="modal__close-button modal__close-button_profile" type="button" aria-label="close button"></button>
@@ -55,7 +57,9 @@
         <form class="modal__form addCard-form" name="create-form">
           <h3 class="modal__title">New Place</h3>
           <input class="modal__form-control modal__form-control_input_title" type="text" placeholder="Title" name="titleInput" required>
+          <span id="newPlaceTitle" class="modal__errorr"></span>
           <input class="modal__form-control modal__form-control_input_image" type="url" placeholder="Image Link" name="imageLinkInput" required>
+          <span id="newPlaceLink" class="modal__error"></span>
           <button class="modal__form-submit" type="submit" aria-label="save button">Save</button>
         </form>
         <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
@@ -82,7 +86,8 @@
           </div>
         </li>
     </template>
-  </div>  
+  </div> 
+  <script src="./scripts/validate.js"></script>
   <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>

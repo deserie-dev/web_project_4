@@ -72,16 +72,26 @@ function addNewPlace(cardLink, cardName) {
 //Open a modal
 function openModal(modalWindow) {
   modalWindow.classList.add("modal_opened");
+ document.addEventListener("keydown", escapeToCloseModal);
 }
 
 //Close a modal
 function closeModal(modalWindow) {
   modalWindow.classList.remove("modal_opened");
+  document.removeEventListener("keydown", escapeToCloseModal);
 }
+
+// Allow users to close the modal by pressing the Esc key
+function escapeToCloseModal(evt) {
+    const modals = document.querySelector(".modal_opened");
+    if (evt.key === "Escape") {
+      closeModal(modals);
+    }
+  }
 
 //When the button is clicked, the target property gets the button element
 function likeButtonEnabled (evt) {
-  evt.target.classList.toggle("elements__like_active", true); 
+  evt.target.classList.toggle("elements__like_active"); 
 }
 
 //When edit button clicked, open "Edit Profile" modal. Values for each input field.
