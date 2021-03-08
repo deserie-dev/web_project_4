@@ -36,6 +36,9 @@ const imagePreviewModalText = imageModalWindow.querySelector(".modal__image-titl
 //Elements/cards section in HTML where card template is appended to.
 const list = document.querySelector(".elements__container");
 
+//Variable for modal overlays. Used in function to enable users to close modals by clicking anywhere outside a modal
+const modalOverlays = Array.from(document.getElementsByClassName("modal"));
+
 ////////////////
 //Functions
 ///////////////
@@ -88,6 +91,16 @@ function escapeToCloseModal(evt) {
       closeModal(modals);
     }
   }
+
+// Allow users to close modals by clicking on the overlay, i.e. anywhere outside the modal's borders:
+modalOverlays.forEach(modal => {
+  modal.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+});
+
 
 //When the button is clicked, the target property gets the button element
 function likeButtonEnabled (evt) {
