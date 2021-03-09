@@ -1,19 +1,21 @@
 .modal__form-submit {
-  background-color: #000000;
+  background: #000000;
   border: none;
   border-radius: 2px;
   color: #ffffff;
-  cursor: pointer;
   height: 50px;
   width: 358px;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  margin: 0px auto 36.51px auto;
+  margin-top: 31px;
+  margin-bottom: 36px;
   padding: 0px 0px 0px 0px;
+  transition: opacity 0.3s ease;
 }
 
 .modal__form-submit:hover {
+  cursor: pointer;
   opacity: 0.8;
 }
 
