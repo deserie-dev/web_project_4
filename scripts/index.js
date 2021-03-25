@@ -1,4 +1,7 @@
-import { initialCards } from "./initialcards.js";
+import initialCards from "./initialcards.js";
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+import { openModal, closeModal, escapeToCloseModal } from "./utils.js";
 
 //Modals
 const profileModal = document.querySelector(".modal_type_edit");
@@ -10,6 +13,8 @@ const profileEditButton = document.querySelector(".profile__edit");
 const addButton = document.querySelector(".profile__add");
 const profileCloseButton = profileModal.querySelector(".modal__close-button_profile");
 const imageCloseButton = document.querySelector(".modal__close-button_preview");
+
+
 const placeCloseButton = document.querySelector(".modal__close-button_place");
 
 //Forms
@@ -39,6 +44,26 @@ const list = document.querySelector(".elements__container");
 //Variable for modal overlays. Used with forEach method to enable users to close modals by clicking anywhere outside a modal
 const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 
+///////////////////
+//FormValidator
+///////////////////
+
+const defaultConfig = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__error_visible"
+};
+
+const editFormValidator = new FormValidator(defaultConfig, profileForm);
+
+const addFormValidator = new FormValidator(defaultConfig, addForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
 ////////////////
 //Functions
 ///////////////
@@ -55,11 +80,11 @@ function addNewPlace(cardLink, cardName) {
   cardImage.alt = cardName
     
 //Functionality for the like button
-  const cardLikeButton = cardElement.querySelector(".elements__like");
-  cardLikeButton.addEventListener("click", likeButtonEnabled);
+  // const cardLikeButton = cardElement.querySelector(".elements__like");
+  // cardLikeButton.addEventListener("click", likeButtonEnabled);
 //Functionality for the trash button
-  const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
-  cardDeleteButton.addEventListener("click", () => cardElement.remove());
+  // const cardDeleteButton = cardElement.querySelector(".elements__delete-button");
+  // cardDeleteButton.addEventListener("click", () => cardElement.remove());
 
 //Preview modal  
   modalImage.addEventListener("click", () => {
@@ -73,24 +98,24 @@ function addNewPlace(cardLink, cardName) {
 };
 
 //Open a modal
-function openModal(modalWindow) {
-  modalWindow.classList.add("modal_opened");
- document.addEventListener("keydown", escapeToCloseModal);
-}
+// function openModal(modalWindow) {
+//   modalWindow.classList.add("modal_opened");
+//  document.addEventListener("keydown", escapeToCloseModal);
+// }
 
 //Close a modal
-function closeModal(modalWindow) {
-  modalWindow.classList.remove("modal_opened");
-  document.removeEventListener("keydown", escapeToCloseModal);
-}
+// function closeModal(modalWindow) {
+//   modalWindow.classList.remove("modal_opened");
+//   document.removeEventListener("keydown", escapeToCloseModal);
+// }
 
 // Allow users to close the modal by pressing the Esc key
-function escapeToCloseModal(evt) {
-    const modals = document.querySelector(".modal_opened");
-    if (evt.key === "Escape") {
-      closeModal(modals);
-    }
-  }
+// function escapeToCloseModal(evt) {
+//     const modals = document.querySelector(".modal_opened");
+//     if (evt.key === "Escape") {
+//       closeModal(modals);
+//     }
+//   }
 
 // Allow users to close modals by clicking on the overlay, i.e. anywhere outside the modal's borders:
 modalOverlays.forEach(modal => {
@@ -103,9 +128,9 @@ modalOverlays.forEach(modal => {
 
 
 //When the button is clicked, the target property gets the button element
-function likeButtonEnabled (evt) {
-  evt.target.classList.toggle("elements__like_active"); 
-}
+// function likeButtonEnabled (evt) {
+//   evt.target.classList.toggle("elements__like_active"); 
+// }
 
 //When edit button clicked, open "Edit Profile" modal. Values for each input field.
 profileEditButton.addEventListener("click", function() {
@@ -125,15 +150,20 @@ profileForm.addEventListener("submit", function(evt) {
 // Code responsible for the initial display of the cards.
 
 initialCards.forEach((card) => {
-    const placeCard = addNewPlace(card.link, card.name);
-    list.prepend(placeCard);    
+    const placeCard = new Card(card, ".card-template");
+    const newPlaceCard = placeCard.generateCard();
+    list.prepend(newPlaceCard);    
 });
 
 //Create new Place Card based on user input
 function saveNewPlace(evt) {
   evt.preventDefault();
-  const newPlaceCard = addNewPlace(`${formImage.value}`, formTitle.value);
-  list.prepend(newPlaceCard);
+  const newPlace = {};
+  newPlace.name = formTitle.value;
+  newPlace.link = formImage.value;
+  const addNewPlace = new Card(newPlace, ".card-template");
+  const createNewPlaceCard = addNewPlace.generateCard();
+  list.prepend(createNewPlaceCard);
   closeModal(createForm);
 }
 
