@@ -21,5 +21,3 @@ export function escapeToCloseModal(evt) {
       closeModal(modals);
     }
   }
-
-  
