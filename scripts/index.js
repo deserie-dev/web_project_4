@@ -57,8 +57,6 @@ const settings = {
   errorClass: "modal__error"
 };
 
-
-
 ////////////////
 //Functions
 ///////////////
@@ -75,15 +73,7 @@ profileEditButton.addEventListener("click", function() {
   formName.value = profileName.textContent;
   formOccupation.value = profileOccupation.textContent;
   openModal(profileModal);
-  // disableButton(profileModal);
 });
-
-//disable button
-// function disableButton(modal) {
-//   const button = modal.querySelector(".modal__form-submit");
-//   button.classList.add("modal__form-submit_disabled");
-//   button.disabled = true;
-// }
 
 profileForm.addEventListener("submit", function(evt) {
   profileName.textContent = formName.value;
@@ -113,11 +103,7 @@ function saveNewPlace(evt) {
 //Event Handlers
 //////////////////
 
-addForm.addEventListener("submit", function(evt) {
-  saveNewPlace();
-  addButton.classList.add("inactiveButtonClass");
-  addButton.setAttribute("disabled", true);
-}); 
+addForm.addEventListener("submit", saveNewPlace); 
 
 addButton.addEventListener("click", () => openModal(createForm));
 

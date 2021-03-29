@@ -46,11 +46,7 @@ class FormValidator {
     }
   }
 
-  enableValidation() {
-    this._formElement.addEventListener("submit", (event) => {
-      event.preventDefault();
-    });
-
+  _setEventListeners() {
     const inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const button = this._formElement.querySelector(this._submitButtonSelector);
 
@@ -61,6 +57,14 @@ class FormValidator {
         this._toggleButtonState(inputs, button);
       });
     });
+  }
+
+  enableValidation() {
+    this._formElement.addEventListener("submit", (event) => {
+      event.preventDefault();
+    });
+
+    this._setEventListeners();
   }
 }
 
