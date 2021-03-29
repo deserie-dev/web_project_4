@@ -1,4 +1,6 @@
 .modal__form-submit_disabled {
-  background-color: #e9c0c0;
-  color: #ffffff;
+  opacity: 0.2;
+  border: 1px solid #000000;
+  background: none;
+  color: #000000;
 }

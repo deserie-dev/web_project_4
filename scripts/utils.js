@@ -6,6 +6,13 @@ export const modalImageCaption = imageModal.querySelector(".modal__image-title")
 export function openModal(modalWindow) {
   modalWindow.classList.add("modal_opened");
  document.addEventListener("keydown", escapeToCloseModal);
+ disableButton(modalWindow);
+}
+
+function disableButton() {
+  const button = document.querySelector(".modal__form-submit");
+  button.classList.add("modal__form-submit_disabled");
+  button.disabled = true;
 }
 
 //Close a modal
