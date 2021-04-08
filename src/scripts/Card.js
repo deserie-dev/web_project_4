@@ -22,7 +22,7 @@ class Card {
       evt.target.closest(".elements__item").remove();
     }
 
-    _handlePreviewModal(){
+    _handleCardClick(){
 
     modalImage.src = this._link;
     modalImage.alt = this._name;
@@ -37,7 +37,7 @@ class Card {
 
       likeButton.addEventListener("click", this._handleLikeButton);
       trashButton.addEventListener("click", this._handleTrashButton);
-      cardImage.addEventListener("click", () => this._handlePreviewModal());
+      cardImage.addEventListener("click", () => this._handleCardClick());
     }
 
     

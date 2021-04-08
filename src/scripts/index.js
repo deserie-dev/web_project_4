@@ -122,3 +122,5 @@ const addNewFormValidator = new FormValidator(settings, addNewForm);
 
 editFormValidator.enableValidation();
 addNewFormValidator.enableValidation();
+
+export { profileName,profileOccupation };
