@@ -12,13 +12,13 @@
 
   <div>
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Logo">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Logo">
     </header>
 
     <main class="content">
 
       <section class="profile">
-        <img class="profile__image" src="./images/jacquescousteau.jpg" alt="Profile Picture">
+        <img class="profile__image" src="<%=require('./images/jacquescousteau.jpg')%>" alt="Profile Picture">
         <div class="profile__content">
           <div class="profile__details">
             <h1 class="profile__name">Jacques Cousteau</h1>
@@ -87,6 +87,5 @@
         </li>
     </template>
   </div> 
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>

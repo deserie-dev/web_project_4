@@ -1,7 +1,13 @@
-import initialCards from "./initialcards.js";
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
-import { openModal, closeModal, } from "./utils.js";
+import initialCards from "../scripts/initialcards.js";
+import FormValidator from "../scripts/FormValidator.js";
+import Card from "../scripts/Card.js";
+import Popup from "../scripts/Popup.js";
+import PopupWithForm from "../scripts/PopupWithForm.js";
+import PopupWithImage from "../scripts/PopupWithImage.js";
+import Section from "../scripts/Section.js";
+import UserInfo from "../scripts/UserInfo.js";
+import { openModal, closeModal, } from "../scripts/utils.js";
+import "../pages/index.css";
 
 //Modals
 const profileModal = document.querySelector(".modal_type_edit");
