@@ -1,11 +1,11 @@
 import initialCards from "../scripts/initialcards.js";
-import FormValidator from "../scripts/FormValidator.js";
-import Card from "../scripts/Card.js";
-import Popup from "../scripts/Popup.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import PopupWithImage from "../scripts/PopupWithImage.js";
-import Section from "../scripts/Section.js";
-import UserInfo from "../scripts/UserInfo.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import Popup from "../components/Popup.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
 import { openModal, closeModal, } from "../scripts/utils.js";
 import "../pages/index.css";
 

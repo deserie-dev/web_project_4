@@ -1,4 +1,4 @@
-import { imageModal, modalImage, modalImageCaption, openModal, closeModal, escapeToCloseModal } from "./utils.js";
+import { imageModal, modalImage, modalImageCaption, openModal, closeModal, escapeToCloseModal } from "../scripts/utils.js";
 
 class Card {
 

@@ -1,4 +1,4 @@
-import { profileName, profileOccupation} from "./index.js";
+import { profileName, profileOccupation} from "../pages/index.js";
 
 class UserInfo {
   constructor({data}) {
