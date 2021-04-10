@@ -7,7 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { openModal, closeModal, } from "../scripts/utils.js";
-import "../pages/index.css";
+import "./index.css";
 
 //Modals
 const profileModal = document.querySelector(".modal_type_edit");
