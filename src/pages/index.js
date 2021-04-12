@@ -1,3 +1,4 @@
+import "./index.css";
 import initialCards from "../scripts/initialcards.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -7,7 +8,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { openModal, closeModal, } from "../scripts/utils.js";
-import "./index.css";
+
 
 //Modals
 const profileModal = document.querySelector(".modal_type_edit");
@@ -63,36 +64,38 @@ const settings = {
   errorClass: "modal__error"
 };
 
-////////////////
-//Functions
-///////////////
+const editForm = document.querySelector(".modal__form_type_profile");
+const addNewForm = document.querySelector(".addCard-form");
 
-modalOverlays.forEach(modal => {
-  modal.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("modal")) {
-      closeModal(modal);
-    }
-  });
-});
+const editFormValidator = new FormValidator(settings, editForm);
 
-profileEditButton.addEventListener("click", function() {
-  formName.value = profileName.textContent;
-  formOccupation.value = profileOccupation.textContent;
-  openModal(profileModal);
-});
+const addNewFormValidator = new FormValidator(settings, addNewForm);
 
-profileForm.addEventListener("submit", function(evt) {
+editFormValidator.enableValidation();
+addNewFormValidator.enableValidation();
+
+/////////////////////////////////
+//// Sprint 8 Functions
+/////////////////////////////////
+
+
+// function to submit profile form and update profile 
+
+function saveNewProfile(evt) {
   profileName.textContent = formName.value;
   profileOccupation.textContent = formOccupation.value;
   closeModal(profileModal)
   evt.preventDefault();
-})
+}
 
-initialCards.forEach((card) => {
-    const placeCard = new Card(card, ".card-template");
-    const newPlaceCard = placeCard.generateCard();
-    list.prepend(newPlaceCard);    
-});
+// profileForm.addEventListener("submit", function(evt) {
+//   profileName.textContent = formName.value;
+//   profileOccupation.textContent = formOccupation.value;
+//   closeModal(profileModal)
+//   evt.preventDefault();
+// })
+
+// to submit new Place form and create a new place
 
 function saveNewPlace(evt) {
   evt.preventDefault();
@@ -105,11 +108,55 @@ function saveNewPlace(evt) {
   closeModal(createForm);
 }
 
+// create picture popup
+
+const picturePopUp = new PopupWithImage(".modal_type_preview");
+
+picturePopUp.setEventListeners();
+
+// function to open picture on click
+
+function openPopUpOnClick(link, name) {
+    picturePopUp.openModal(link, name);
+}
+
+
+const cardList = new Section({
+    items: initialCards,
+    renderer: (card) => {
+        const newCard = new Card(
+            card,
+            ".card-template",
+            openPopUpOnClick
+        );
+        const newCreatedCard = newCard.createCard();
+        cardList.addCard(newCreatedCard);
+      },
+    },
+    ".elements__container"
+  );
+  
+cardList.renderItems();
+
+// instructions to create form popups
+
+const profilePopUp = new PopupWithForm(".modal_type_edit", saveNewProfile);
+
+const newPlacePopUp = new PopupWithForm(".modal_type_create", saveNewPlace);
+
+
+// set event listeners
+
+profilePopUp.setEventListeners();
+
+newPlacePopUp.setEventListeners();
+
+
 //////////////////
 //Event Handlers
 //////////////////
 
-addForm.addEventListener("submit", saveNewPlace); 
+profileEditButton.addEventListener("click", () => openModal(profileModal));
 
 addButton.addEventListener("click", () => openModal(createForm));
 
@@ -119,14 +166,48 @@ placeCloseButton.addEventListener("click", () => closeModal(createForm));
 
 imageCloseButton.addEventListener("click", () => closeModal(imageModalWindow));
 
-const editForm = document.querySelector(".modal__form_type_profile");
-const addNewForm = document.querySelector(".addCard-form");
 
-const editFormValidator = new FormValidator(settings, editForm);
 
-const addNewFormValidator = new FormValidator(settings, addNewForm);
 
-editFormValidator.enableValidation();
-addNewFormValidator.enableValidation();
+
+
+
+
+
+
+
+
+
+////////////////
+//Functions
+///////////////
+
+modalOverlays.forEach(modal => {
+  modal.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+});
+
+// profileEditButton.addEventListener("click", function() {
+//   formName.value = profileName.textContent;
+//   formOccupation.value = profileOccupation.textContent;
+//   openModal(profileModal);
+// });
+
+
+
+// initialCards.forEach((card) => {
+//     const placeCard = new Card(card, ".card-template");
+//     const newPlaceCard = placeCard.generateCard();
+//     list.prepend(newPlaceCard);    
+// });
+
+
+
+
+
+
 
 export { profileName,profileOccupation };

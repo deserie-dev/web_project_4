@@ -1,12 +1,11 @@
-import { imageModal, modalImage, modalImageCaption, openModal, closeModal, escapeToCloseModal } from "../scripts/utils.js";
-
 class Card {
 
-    constructor(cardData, templateSelector) {
+    constructor(cardData, templateSelector, handleCardClick) {
 
         this._name = cardData.name;
         this._link = cardData.link;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -22,13 +21,13 @@ class Card {
       evt.target.closest(".elements__item").remove();
     }
 
-    _handleCardClick(){
+    // _handleCardClick(){
 
-    modalImage.src = this._link;
-    modalImage.alt = this._name;
-    modalImageCaption.textContent = this._name;
-    openModal(imageModal);
-    }
+    // modalImage.src = this._link;
+    // modalImage.alt = this._name;
+    // modalImageCaption.textContent = this._name;
+    // openModal(imageModal);
+    // }
 
     _setEventListeners() {
       const likeButton = this._card.querySelector(".elements__like");
