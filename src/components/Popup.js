@@ -1,8 +1,7 @@
 class Popup {
   constructor(popupSelector) {
     this._popupSelector = document.querySelector(popupSelector);
-    this._closeBtn = this._popupSelector.querySelector(".modal__close-button");
-    // this._overlay = Array.from(document.getElementsByClassName("modal"));
+    this._closeBtn = document.querySelector(".modal__close-button");
     this._escapeToCloseModal = this._escapeToCloseModal.bind(this);
   }
 
@@ -26,9 +25,12 @@ class Popup {
         this._closeBtn.addEventListener("click", () => {
             this.closeModal();
         });
-        // this._overlay.addEventListener("click", () => {
-        //     this.closeModal();
-        // });
+
+        this._popupSelector.addEventListener("click", (evt) => {
+            if (evt.target.classList.contains("modal")) {
+            this.closeModal();
+            }
+        });
     }
 }
 

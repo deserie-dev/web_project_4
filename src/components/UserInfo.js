@@ -1,16 +1,21 @@
 import { profileName, profileOccupation} from "../pages/index.js";
 
 class UserInfo {
-  constructor({data}) {
-    this._name = data.name;
-    this._occupation = data.occupation;
+  constructor({ name, occupation }) {
+    this._name = name;
+    this._occupation = occupation;
   }
 
   getUserInfo() {
-    return data;
+    return {
+      name: this._name,
+      occupation: this._occupation
+    };
   }
 
-  setUserInfo() {
+  setUserInfo({ name, occupation }) {
+    this._name = name;
+    this._occupation = occupation;
     profileName.textContent = this._name;
     profileOccupation = this._occupation;
   }

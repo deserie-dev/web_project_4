@@ -2,7 +2,6 @@ import "./index.css";
 import initialCards from "../scripts/initialcards.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
@@ -78,46 +77,14 @@ addNewFormValidator.enableValidation();
 ////Functions
 ////////////////
 
-function saveNewProfile(evt) {
-  profileName.textContent = formName.value;
-  profileOccupation.textContent = formOccupation.value;
-  closeModal(profileModal)
-  evt.preventDefault();
-}
-
-function saveNewPlace(evt) {
-  evt.preventDefault();
-  const newPlace = {};
-  newPlace.name = formTitle.value;
-  newPlace.link = formImage.value;
-  const addNewPlace = new Card(newPlace, ".card-template");
-  const createNewPlaceCard = addNewPlace.generateCard();
-  list.prepend(createNewPlaceCard);
-  closeModal(createForm);
-}
-
-modalOverlays.forEach(modal => {
-  modal.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("modal")) {
-      closeModal(modal);
-    }
-  });
-});
-
-
-const imagePreview = new PopupWithImage(".modal_type_preview");
-imagePreview.setEventListeners();
-
-
 const initialCardSection = new Section({
     items: initialCards,
     renderer: (data) => {
         const newCard = new Card(data, () => {
-          imagePreview.openModal(data.link, data.name);
+          imagePopup.openModal(data.name, data.link);
         });
-        const cardElement = newCard.generateCard();
-        initialCardSection.addItem(cardElement);
-      },
+        initialCardSection.addItem(newCard.generateCard());
+      }
     },
     ".elements__container"
   );
@@ -125,30 +92,128 @@ const initialCardSection = new Section({
 initialCardSection.renderer();
 
 
-const profilePopUp = new PopupWithForm(".modal_type_edit", saveNewProfile);
-
-const newPlacePopUp = new PopupWithForm(".modal_type_create", saveNewPlace);
-
+const imagePopup = new PopupWithImage(".modal_type_preview");
+imagePopup.setEventListeners();
 
 
-profilePopUp.setEventListeners();
+const editImageForm = new PopupWithForm(
+  {
+  popupSelector: ".modal_type_create",
+  formSubmit: () => {
+    document.querySelector(".elements__container").prepend(newCard.generateCard());
+  }
+});
+editImageForm.setEventListeners();
+addButton.addEventListener("click", () => openModal(createForm));
 
-newPlacePopUp.setEventListeners();
+
+const profileInfo = new UserInfo({
+  name: profileName.textContent,
+  occupation: profileOccupation.textContent,
+});
+
+
+const editProfileForm = new PopupWithForm({
+  popupSelector: ".modal_type_edit",
+  formSubmit: () => {
+    profileInfo.setUserInfo(formName.value, formOccupation.value);
+  }
+});
+editProfileForm.setEventListeners();
+
+
+profileEditButton.addEventListener("click", () => {
+  openModal(profileModal);
+  const {name, occupation} = profileInfo.getUserInfo();
+  formName.value = name;
+  formOccupation.value = occupation;
+})
+
+
+export { profileName,profileOccupation };
+
+
+
+
+
+
+
+
+// const resetProfileInfo = () => {
+//   const profile = userInformation.getUserInfo();
+//   formName.value = profile.name;
+//   formOccupation.value = profile.occupation;
+// };
+
+// const resetImageInput = () => {
+//   formTitle.value = "";
+//   formImage.value = "";
+// };
+ 
+
+
+// const imagePopup = new PopupWithImage(".modal modal_type_preview");
+// imagePopup.setEventListeners();
+
+// const addCardPopup = new PopupWithForm(
+//   ".modal_type_create",
+// )
+
+// function saveNewProfile(name, occupation) {
+//   profileInfo.setUserInfo({ name, occupation });
+//   closeModal(profileModal)
+//   // evt.preventDefault();
+// }
+
+// function saveNewPlace(evt) {
+//   evt.preventDefault();
+//   const newPlace = {};
+//   newPlace.name = formTitle.value;
+//   newPlace.link = formImage.value;
+//   const addNewPlace = new Card(newPlace, ".card-template");
+//   const createNewPlaceCard = addNewPlace.generateCard();
+//   list.prepend(createNewPlaceCard);
+//   closeModal(createForm);
+// }
+
+// modalOverlays.forEach(modal => {
+//   modal.addEventListener("click", (evt) => {
+//     if (evt.target.classList.contains("modal")) {
+//       closeModal(modal);
+//     }
+//   });
+// });
+
+
+// const imagePreview = new PopupWithImage(".modal_type_preview");
+// imagePreview.setEventListeners();
+
+
+
+
+// const profilePopUp = new PopupWithForm(".modal_type_edit", saveNewProfile);
+
+// const newPlacePopUp = new PopupWithForm(".modal_type_create", saveNewPlace);
+
+
+
+// profilePopUp.setEventListeners();
+
+// newPlacePopUp.setEventListeners();
 
 
 //////////////////
 //Event Handlers
 //////////////////
 
-profileEditButton.addEventListener("click", () => openModal(profileModal));
-
-addButton.addEventListener("click", () => openModal(createForm));
-
-profileCloseButton.addEventListener("click", () => closeModal(profileModal));
-
-placeCloseButton.addEventListener("click", () => closeModal(createForm));
-
-imageCloseButton.addEventListener("click", () => closeModal(imageModalWindow));
+// profileEditButton.addEventListener("click", () => openModal(profileModal));
 
 
-export { profileName,profileOccupation };
+
+// profileCloseButton.addEventListener("click", () => closeModal(profileModal));
+
+// placeCloseButton.addEventListener("click", () => closeModal(createForm));
+
+// imageCloseButton.addEventListener("click", () => closeModal(imageModalWindow));
+
+
