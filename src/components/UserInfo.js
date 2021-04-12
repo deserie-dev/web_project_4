@@ -1,23 +1,19 @@
-import { profileName, profileOccupation} from "../pages/index.js";
-
 class UserInfo {
   constructor({ name, occupation }) {
-    this._name = name;
-    this._occupation = occupation;
+    this._name = document.querySelector(name);
+    this._occupation = document.querySelector(occupation);
   }
 
   getUserInfo() {
     return {
-      name: this._name,
-      occupation: this._occupation
-    };
+      name: this._name.textContent,
+      occupation: this._occupation.textContent
+    }
   }
 
-  setUserInfo({ name, occupation }) {
-    this._name = name;
-    this._occupation = occupation;
-    profileName.textContent = this._name;
-    profileOccupation = this._occupation;
+  setUserInfo(name, occupation) {
+    this._name.textContent = name;
+    this._occupation.textContent = occupation;
   }
 }
 

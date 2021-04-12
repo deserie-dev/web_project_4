@@ -79,12 +79,13 @@ addNewFormValidator.enableValidation();
 
 const initialCardSection = new Section({
     items: initialCards,
-    renderer: (data) => {
-        const newCard = new Card(data, () => {
-          imagePopup.openModal(data.name, data.link);
+    renderer: (cardData) => {
+        const newCard = new Card(cardData, () => {
+          imagePopup.openModal(cardData.name, cardData.link);
         });
-        initialCardSection.addItem(newCard.generateCard());
-      }
+        const cardElement = newCard.generateCard();
+        initialCardSection.addItem(cardElement);
+      },
     },
     ".elements__container"
   );
@@ -99,7 +100,7 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm(
   {
   popupSelector: ".modal_type_create",
-  formSubmit: () => {
+  formSubmit: (newCard) => {
     document.querySelector(".elements__container").prepend(newCard.generateCard());
   }
 });
@@ -108,8 +109,8 @@ addButton.addEventListener("click", () => openModal(createForm));
 
 
 const profileInfo = new UserInfo({
-  name: profileName.textContent,
-  occupation: profileOccupation.textContent,
+  name:".profile__name",
+  occupation: ".profile__occupation"
 });
 
 
