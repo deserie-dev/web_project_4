@@ -74,12 +74,9 @@ const addNewFormValidator = new FormValidator(settings, addNewForm);
 editFormValidator.enableValidation();
 addNewFormValidator.enableValidation();
 
-/////////////////////////////////
-//// Sprint 8 Functions
-/////////////////////////////////
-
-
-// function to submit profile form and update profile 
+/////////////////
+////Functions
+////////////////
 
 function saveNewProfile(evt) {
   profileName.textContent = formName.value;
@@ -87,15 +84,6 @@ function saveNewProfile(evt) {
   closeModal(profileModal)
   evt.preventDefault();
 }
-
-// profileForm.addEventListener("submit", function(evt) {
-//   profileName.textContent = formName.value;
-//   profileOccupation.textContent = formOccupation.value;
-//   closeModal(profileModal)
-//   evt.preventDefault();
-// })
-
-// to submit new Place form and create a new place
 
 function saveNewPlace(evt) {
   evt.preventDefault();
@@ -108,44 +96,40 @@ function saveNewPlace(evt) {
   closeModal(createForm);
 }
 
-// create picture popup
-
-const picturePopUp = new PopupWithImage(".modal_type_preview");
-
-picturePopUp.setEventListeners();
-
-// function to open picture on click
-
-function openPopUpOnClick(link, name) {
-    picturePopUp.openModal(link, name);
-}
+modalOverlays.forEach(modal => {
+  modal.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+});
 
 
-const cardList = new Section({
+const imagePreview = new PopupWithImage(".modal_type_preview");
+imagePreview.setEventListeners();
+
+
+const initialCardSection = new Section({
     items: initialCards,
-    renderer: (card) => {
-        const newCard = new Card(
-            card,
-            ".card-template",
-            openPopUpOnClick
-        );
-        const newCreatedCard = newCard.createCard();
-        cardList.addCard(newCreatedCard);
+    renderer: (data) => {
+        const newCard = new Card(data, () => {
+          imagePreview.openModal(data.link, data.name);
+        });
+        const cardElement = newCard.generateCard();
+        initialCardSection.addItem(cardElement);
       },
     },
     ".elements__container"
   );
   
-cardList.renderItems();
+initialCardSection.renderer();
 
-// instructions to create form popups
 
 const profilePopUp = new PopupWithForm(".modal_type_edit", saveNewProfile);
 
 const newPlacePopUp = new PopupWithForm(".modal_type_create", saveNewPlace);
 
 
-// set event listeners
 
 profilePopUp.setEventListeners();
 
@@ -165,49 +149,6 @@ profileCloseButton.addEventListener("click", () => closeModal(profileModal));
 placeCloseButton.addEventListener("click", () => closeModal(createForm));
 
 imageCloseButton.addEventListener("click", () => closeModal(imageModalWindow));
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////
-//Functions
-///////////////
-
-modalOverlays.forEach(modal => {
-  modal.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("modal")) {
-      closeModal(modal);
-    }
-  });
-});
-
-// profileEditButton.addEventListener("click", function() {
-//   formName.value = profileName.textContent;
-//   formOccupation.value = profileOccupation.textContent;
-//   openModal(profileModal);
-// });
-
-
-
-// initialCards.forEach((card) => {
-//     const placeCard = new Card(card, ".card-template");
-//     const newPlaceCard = placeCard.generateCard();
-//     list.prepend(newPlaceCard);    
-// });
-
-
-
-
-
 
 
 export { profileName,profileOccupation };

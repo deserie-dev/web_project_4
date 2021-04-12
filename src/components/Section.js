@@ -5,10 +5,14 @@ class Section {
     this._cardContainer = document.querySelector(cardContainerSelector);
   }
 
-  renderItems() {
-    this._items.forEach(item => this._renderer(item));
+  renderer() {
+    this._items.forEach((item) => this._renderer(item));
   }
       
+  addItem(card) {
+    this._cardContainer.append(card);
+  }
+
   addCard(card) {
     this._cardContainer.prepend(card);
   }
