@@ -16,7 +16,6 @@ class PopupWithForm extends Popup {
   }
 
   openModal() {
-      this.getInputValues();
       super.openModal();
   }
 

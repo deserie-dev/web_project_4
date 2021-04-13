@@ -6,7 +6,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
-import { openModal, closeModal, } from "../scripts/utils.js";
 
 
 //Modals
@@ -101,7 +100,6 @@ const cards = new Section (
 cards.renderer();
 
 
-
 const imagePopup = new PopupWithImage(".modal_type_preview");
 imagePopup.setEventListeners();
 
@@ -109,12 +107,17 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm({
   popupSelector: ".modal_type_create",
   formSubmit: () => {
-    cards.addItem(createCard({name: formTitle.value, link: formImage.value}));
+    cards.addItem(createCard(() => {
+      _getInputValues();
+    })
+    );
   }
 });
   
 editImageForm.setEventListeners();
-addButton.addEventListener("click", () => openModal(createForm));
+addButton.addEventListener("click", function() {
+  editImageForm.openModal();
+});
 
 
 const profileInfo = new UserInfo({
@@ -126,14 +129,16 @@ const profileInfo = new UserInfo({
 const editProfileForm = new PopupWithForm({
   popupSelector: ".modal_type_edit",
   formSubmit: () => {
-    profileInfo.setUserInfo(formName.value, formOccupation.value);
+    profileInfo.setUserInfo(() => {
+      _getInputValues();
+    });
   }
 });
 editProfileForm.setEventListeners();
 
 
-profileEditButton.addEventListener("click", () => {
-  openModal(profileModal);
+profileEditButton.addEventListener("click", function() {
+  editProfileForm.openModal();
   const {name, occupation} = profileInfo.getUserInfo();
   formName.value = name;
   formOccupation.value = occupation;
@@ -141,6 +146,3 @@ profileEditButton.addEventListener("click", () => {
 
 
 export { profileName,profileOccupation };
-
-
-

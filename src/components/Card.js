@@ -1,5 +1,3 @@
-import { imageModal, modalImage, modalImageCaption, openModal } from "../scripts/utils.js"
-
 class Card {
 
     constructor(cardData, handleCardClick) {
@@ -9,6 +7,9 @@ class Card {
     }
 
     _handleImagePreview() {
+        const imageModal = document.querySelector(".modal_type_preview");
+        const modalImage = imageModal.querySelector(".modal__image");
+        const modalImageCaption = imageModal.querySelector(".modal__image-title"); 
         modalImage.src = this._link;
         modalImage.alt = this._name;
         modalImageCaption.textContent = this._name;
