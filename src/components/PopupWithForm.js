@@ -15,30 +15,22 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-    resetInputValues() {
-        this._inputs.forEach((input) => {
-            input.value = "";
-        });
-    }
+  openModal() {
+      this.getInputValues();
+      super.openModal();
+  }
 
-    openModal() {
-        this.getInputValues();
-        super.openModal();
-    }
+  setEventListeners() {
+    super.setEventListeners();
+    this._form = this._popupSelector.querySelector(".modal__form");
+    this._form.addEventListener("submit", (evt) => {
+        evt.preventDefault();
+        this._formSubmit(this._getInputValues());
+        this.closeModal();
+    });
+  }
 
-    setEventListeners() {
-        super.setEventListeners();
-        this._form = document.querySelector(".modal__form");
-        this._form.addEventListener("submit", (evt) => {
-            evt.preventDefault();
-            this._formSubmit(this._getInputValues);
-            this.closeModal();
-        });
-        
-
-    }
-
-    closeModal() {
+  closeModal() {
     super.closeModal();
   }
 }  

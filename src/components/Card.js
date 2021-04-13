@@ -3,7 +3,6 @@ import { imageModal, modalImage, modalImageCaption, openModal } from "../scripts
 class Card {
 
     constructor(cardData, handleCardClick) {
-
         this._name = cardData.name;
         this._link = cardData.link;
         this._handleCardClick = handleCardClick;
