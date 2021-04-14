@@ -36,6 +36,10 @@ const formImage = document.querySelector(".modal__form-control_input_image");
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
 
+//New Place Info
+const placeTitle = document.querySelector(".placeTitle");
+const placeLink = document.querySelector(".placeLink");
+
 //Variables for the add new card/place section
 const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
 
@@ -107,8 +111,10 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm({
   popupSelector: ".modal_type_create",
   formSubmit: () => {
-    cards.addItem(createCard(getInputValues())
-    );
+    const newPlaceCard = new Card(() => {
+      imagePopup.openModal(editImageForm._getInputValues().placeTitleInput, editImageForm._getInputValues().placeLinkInput );
+    });
+    cards.addItem(createCard(newPlaceCard));
   }
 });
   
@@ -127,7 +133,7 @@ const profileInfo = new UserInfo({
 const editProfileForm = new PopupWithForm({
   popupSelector: ".modal_type_edit",
   formSubmit: () => {
-    profileInfo.setUserInfo(getInputValues());
+    profileInfo.setUserInfo(editProfileForm._getInputValues().profileNameInput, editProfileForm._getInputValues().profileOccupationInput );
   }
 });
 editProfileForm.setEventListeners();
