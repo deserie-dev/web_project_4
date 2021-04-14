@@ -107,9 +107,7 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm({
   popupSelector: ".modal_type_create",
   formSubmit: () => {
-    cards.addItem(createCard(() => {
-      _getInputValues();
-    })
+    cards.addItem(createCard(getInputValues())
     );
   }
 });
@@ -129,9 +127,7 @@ const profileInfo = new UserInfo({
 const editProfileForm = new PopupWithForm({
   popupSelector: ".modal_type_edit",
   formSubmit: () => {
-    profileInfo.setUserInfo(() => {
-      _getInputValues();
-    });
+    profileInfo.setUserInfo(getInputValues());
   }
 });
 editProfileForm.setEventListeners();
