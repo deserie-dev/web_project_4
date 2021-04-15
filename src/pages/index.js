@@ -111,11 +111,8 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm({
   popupSelector: ".modal_type_create",
   formSubmit: () => {
-    const newPlaceCard = new Card(() => {
-      imagePopup.openModal(editImageForm._getInputValues().placeTitleInput, editImageForm._getInputValues().placeLinkInput );
-    });
-    cards.addItem(createCard(newPlaceCard));
-  }
+    cards.addItem(createCard(editImageForm._getInputValues().titleInput, editImageForm._getInputValues().imageLinkInput));
+  },
 });
   
 editImageForm.setEventListeners();
