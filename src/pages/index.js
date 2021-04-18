@@ -111,7 +111,7 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm({
   popupSelector: ".modal_type_create",
   formSubmit: () => {
-    cards.addItem(createCard(formTitle.value, formImage.value)
+    cards.addItem(createCard({name: formTitle.value, link: formImage.value})
     );
   }
 });
@@ -131,7 +131,7 @@ const profileInfo = new UserInfo({
 const editProfileForm = new PopupWithForm({
   popupSelector: ".modal_type_edit",
   formSubmit: () => {
-    profileInfo.setUserInfo(formName.value, formOccupation.value );
+    profileInfo.setUserInfo(formName.value, formOccupation.value);
   }
 });
 editProfileForm.setEventListeners();
