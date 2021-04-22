@@ -6,6 +6,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 
 
 //Modals
@@ -76,15 +77,31 @@ const addNewFormValidator = new FormValidator(settings, addNewForm);
 editFormValidator.enableValidation();
 addNewFormValidator.enableValidation();
 
-/////////////////
-////Functions
-////////////////
+///////////
+//API
+///////////
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-10",
+  headers: {
+    authorization: "3e6a2d00-5fce-4033-96ec-e7320045c084",
+    "Content-Type": "application/json"
+  }
+});
 
+//Render Initial cards
 
-const createCard = cardData => {
-  const newCard = new Card(cardData, () => {
+api.getInitialCards()
+.then(res => {
+  const createCard = cardData => {
+  const newCard = new Card({
+    cardData, 
+    handleCardClick: () => {
     imagePopup.openModal(cardData.name, cardData.link);
-  });
+  },
+  handleDeleteClick: (cardId) => {
+    api.removeCard(cardId)
+  }
+});
 
     const cardElement = newCard.generateCard();
 
@@ -94,7 +111,7 @@ const createCard = cardData => {
 
 const cards = new Section (
   {
-    items: initialCards,
+    items: res,
     renderer: (cardData) => {
       cards.addItem(createCard(cardData));
     },
@@ -102,6 +119,24 @@ const cards = new Section (
   ".elements__container",
 );
 cards.renderer();
+})
+
+//Get User Info
+
+const profileInfo = new UserInfo({
+  name:".profile__name",
+  occupation: ".profile__occupation"
+});
+
+api.getUserInfo()
+.then(res => {
+  profileInfo.setUserInfo(name: res.name, occupation: res.about)
+})
+
+/////////////////
+////Functions
+////////////////
+
 
 
 const imagePopup = new PopupWithImage(".modal_type_preview");
@@ -111,19 +146,16 @@ imagePopup.setEventListeners();
 const editImageForm = new PopupWithForm({
   popupSelector: ".modal_type_create",
   formSubmit: (values) => {
-    cards.addItem(createCard({name: values.titleInput, link: values.imageLinkInput}));
+    api.addCard(values)
+    .then(res => {
+      cards.addItem(createCard({name: values.titleInput, link: values.imageLinkInput}));
+    });
   }
 });
   
 editImageForm.setEventListeners();
 addButton.addEventListener("click", function() {
   editImageForm.openModal();
-});
-
-
-const profileInfo = new UserInfo({
-  name:".profile__name",
-  occupation: ".profile__occupation"
 });
 
 

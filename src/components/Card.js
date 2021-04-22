@@ -1,9 +1,15 @@
 class Card {
 
-    constructor(cardData, handleCardClick) {
+    constructor(cardData, handleCardClick, handleDeleteClick) {
         this._name = cardData.name;
         this._link = cardData.link;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteClick = handleDeleteClick;
+        this._id = cardData.id;
+    }
+
+    id() {
+        return this._id()
     }
 
     _handleImagePreview() {
@@ -29,8 +35,8 @@ class Card {
       const trashButton = this._card.querySelector(".elements__delete-button");
       const cardImage = this._card.querySelector(".elements__image");
 
-      likeButton.addEventListener("click", this._handleLikeButton);
-      trashButton.addEventListener("click", this._handleTrashButton);
+      likeButton.addEventListener("click", () => this._handleLikeButton());
+      trashButton.addEventListener("click", () => this._handleDeleteClick(this.id()));
       cardImage.addEventListener("click", () => this._handleCardClick());
     }
 
