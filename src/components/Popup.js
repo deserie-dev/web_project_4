@@ -21,15 +21,12 @@ class Popup {
     }
 
     setEventListeners() {
-        const closeButton = this._popupSelector.querySelector(".modal__close-button");
-        closeButton.addEventListener("click", () => {
-            this.closeModal();
-        });
-
         this._popupSelector.addEventListener("click", (evt) => {
-            if (evt.target.classList.contains("modal")) {
+            if (
+                evt.target.classList.contains("modal__close-button") ||
+                evt.target.classList.contains("modal")
+            )
             this.closeModal();
-            }
         });
     }
 }

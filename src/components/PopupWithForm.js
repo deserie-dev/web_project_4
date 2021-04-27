@@ -6,6 +6,16 @@ class PopupWithForm extends Popup {
     this._formSubmit = formSubmit;
   }
 
+  // renderLoading(isLoading){
+  //   this._saveButton = this._form.querySelector(".save-btn")
+  //   const buttonText = this._saveButton.textContent;
+  //   if(isLoading){
+  //     buttonText = "Saving...";
+  //   } else {
+  //     buttonText = "Save";
+  //   }
+  // }
+
   _getInputValues() {
     this._inputList = this._form.querySelectorAll(".modal__form-control");
     this._formValues = {};

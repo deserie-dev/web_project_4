@@ -1,3 +1,5 @@
+@import url("./_type/modal_type_deleteConfirmation.css");
+@import url("./_type/modal_type_avatar.css");
 @import url("./__container/modal__container.css");
 @import url("./__container/_preview/modal__container_preview.css");
 @import url("./__title/modal__title.css");

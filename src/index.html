@@ -15,7 +15,7 @@
     </header>
 
     <main class="content">
-
+    
       <section class="profile">
         <img class="profile__image" src="<%=require('./images/jacquescousteau.jpg')%>" alt="Profile Picture">
         <div class="profile__content">
@@ -32,6 +32,7 @@
         </ul>
       </section>
     </main>
+
 
     <footer class="footer">
       <p class="footer__author">&copy; 2021 Around The U.S.</p>
@@ -53,13 +54,25 @@
 
     <div class="modal modal_type_create">
       <div class="modal__container">
-        <form class="modal__form addCard-form" name="create-form">
+        <form class="modal__form addCard-form" method = "POST" name="create-form">
           <h3 class="modal__title">New Place</h3>
           <input id="placeTitle" class="modal__form-control modal__form-control_input_title" type="text" placeholder="Title" name="titleInput" required minlength="1" maxlength="30">
           <span id="placeTitle-error" class="modal__error"></span>
           <input id="placeLink" class="modal__form-control modal__form-control_input_image" type="url" placeholder="Image Link" name="imageLinkInput" required>
           <span id="placeLink-error" class="modal__error"></span>
-          <button class="modal__form-submit" type="submit" aria-label="save button">Create</button>
+          <button class="modal__form-submit save-btn" type="submit" aria-label="save button">Create</button>
+        </form>
+        <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
+      </div>
+    </div>
+
+    
+
+    <div class="modal modal_type_deleteConfirmation">
+      <div class="modal__container modal__container_type_delete">
+        <form class="modal__form">
+          <h3 class="modal__title modal__title_type_delete">Are you sure?</h3>
+          <button class="modal__form-submit deleteConfirmation-button" type="button" aria-label="delete confirmation button">Yes</button>
         </form>
         <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
       </div>
@@ -82,6 +95,7 @@
           <div class="elements__heading">
             <h2 class="elements__title"></h2>
             <button class="elements__like" type="button" aria-label="like button"></button>
+            <p class="elements__like-counter"></p>
           </div>
         </li>
     </template>

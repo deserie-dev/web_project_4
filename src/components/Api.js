@@ -26,13 +26,13 @@ class Api {
 
   //Add new card
   // POST https://around.nomoreparties.co/v1/group-10/cards
-  addCard({ name, link }) {
+  addCard(values) {
     return fetch(this._baseUrl + "/cards", {
       headers: this._headers,
       method: "POST",
       body: JSON.stringify({
-        name,
-        link
+        name: values.titleInput,
+        link: values.imageLinkInput
       })
     })
     .then(res => res.ok ? res.json() : Promise.reject("Error!" + res.statusText))
@@ -41,7 +41,7 @@ class Api {
 
   //Delete a card
   //DELETE https://around.nomoreparties.co/v1/group-10/cards/cardId
-  removeCard(cardId) {
+  deleteCard(cardId) {
     return fetch(this._baseUrl + "/cards/" + cardId, {
       headers: this._headers,
       method: "DELETE",
@@ -52,12 +52,12 @@ class Api {
 
   //Edit profile data and save to server
   // PATCH https://around.nomoreparties.co/v1/group-10/users/me
-  editProfile({ name, about }) {
+  updateProfile({name, about}) {
     return fetch(this._baseUrl + "/users/me", {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name,
+        name, 
         about
       })
     })
@@ -67,13 +67,11 @@ class Api {
 
   //Update profile pic
   //PATCH https://around.nomoreparties.co/v1/group-10/users/me/avatar
-  editAvatar(avatar) {
+  updateAvatar(link) {
       return fetch(this._baseUrl + '/users/me/avatar/', {
           headers: this._headers,
           method: "PATCH",
-          body: JSON.stringify({
-                avatar
-          })
+          body: JSON.stringify(link)
       })
       .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
       .catch(err => console.log(err))
