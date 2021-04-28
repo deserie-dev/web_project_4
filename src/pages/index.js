@@ -90,15 +90,60 @@ const api = new Api({
   }
 });
 
-const updateProfileInputs = () => {
-  const user = profileInfo.getUserInfo();
-      formName.value = user.name,
-      formOccupation.value = user.about
+
+api.getInitialCards().then((res) => {
+  //new Section
+  const cards = new Section ({
+    items: res,
+    renderer: (input) => {
+      cards.addItem(createCard(input));
+    },
+  },
+  ".elements__container",
+  );
+  cards.renderer();
+
+  //New Place modal for creating a new card using addcard api
+  const editImageForm = new PopupWithForm({
+    popopupSelector: ".modal_type_create",
+    formSubmit: (values) => {
+      api.addCard(values)
+      .then((res) => {
+        cards.addItem(
+          createCard({name: values.title, link: values.image})
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
+  });
+
+  //new Card
+  function createCard (cardData) {
+    const newCard = new Card(
+      cardData, 
+      handleCardClick,
+    );
+    const cardElement = newCard.generateCard();
+    return cardElement;
+  }
+
+  editImageForm.setEventListeners();
+  addButton.addEventListener("click", function() {
+  editImageForm.openModal();
+  });
+
+});
+
+function handleCardClick (name, link) {
+  imagePopup.openModal(name, link);
 }
 
-const handleCardClick = (link, name) => {
-  imagePopup.openModal(link, name);
-};
+api.getUserInfo()
+.then((res) => {
+  profileInfo.setUserInfo(res.name, res.about);
+});
 
 //Render user profile information  
 const profileInfo = new UserInfo({
@@ -106,104 +151,22 @@ const profileInfo = new UserInfo({
   occupation: profileOccupation
 });
 
-      
+const editProfileForm = new PopupWithForm({
+  popopupSelector: ".modal_type_edit",
+  formSubmit: (values) => {     
+    profileInfo.setUserInfo(values.name, values.occupation);
+  },
+});    
 
-api.getUserInfo()
-.then((res) => {
-  profileInfo.setUserInfo({name: res.name, about: res.about});
-  return profileInfo;
-})
-.then((profileInfo) => {
-  api.getInitialCards()
-  .then((data) => {
-    const user = profileInfo.getUserInfo();
-
-    //new Card
-    const createCard = (cardData) => {
-      const newCard = new Card(
-        cardData, 
-        handleCardClick,
-      );
-      return newCard
-    // const cardElement = newCard.generateCard();
-    // return cardElement;
-    }
-
-    //new Section
-    const cards = new Section ({
-      items: data,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        cards.addItem(cardElement.generateCard(user.id))
-      }
-      },
-      ".elements__container",
-      );
-      cards.renderer();
-
-    //New Place modal for creating a new card using addcard api
-    const editImageForm = new PopupWithForm(
-      ".modal_type_create",
-      ({ "imageLinkInput": link, "titleInput": name }) => {
-        api.addCard({ name, link })
-        .then((data) => {
-          const cardElement = createCard(data);
-          cards.addItem(cardElement.generateCard(user.id))
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      }
-    );
-  
-    editImageForm.setEventListeners();
-    addButton.addEventListener("click", function() {
-    updateProfileInputs();
-    editImageForm.openModal();
-    });
-
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-})
-.catch((err) => {
-  console.log(err);
+editProfileForm.setEventListeners();
+profileEditButton.addEventListener("click", () => {
+  const user = profileInfo.getUserInfo();
+  formName.value = user.name,
+  formOccupation.value = user.occupation
 });
 
-
-    //Preview card modal
-    const imagePopup = new PopupWithImage(".modal_type_preview");
-    imagePopup.setEventListeners();
-
-
-    //Edit profile information using updateUserInfo api
-    // const editProfileForm = new PopupWithForm(
-    //   ".modal_type_edit",
-    //    ({ "profileNameInput": name, "profileOccupationInput": about }) => {
-    //   api.updateProfile({ name, about })
-    //     .then((data) => {
-    //       profileInfo.setUserInfo(data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    // },
-    // )
-    const editProfileForm = new PopupWithForm(
-      ".modal_type_edit",
-      (values) => {
-      api.updateProfile(values)
-        .then((res) => {
-          profileInfo.setUserInfo(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    },
-    )
-editProfileForm.setEventListeners();
-
+//Preview card modal
+const imagePopup = new PopupWithImage(".modal_type_preview");
+imagePopup.setEventListeners();
 
 export { profileName,profileOccupation };
