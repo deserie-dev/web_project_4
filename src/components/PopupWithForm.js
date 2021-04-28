@@ -1,9 +1,10 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor({popupSelector, formSubmit}) {
+  constructor(popupSelector, formSubmit) {
     super(popupSelector);
     this._formSubmit = formSubmit;
+    this._form = this._popupSelector.querySelector(".modal__form");
   }
 
   // renderLoading(isLoading){
@@ -30,13 +31,13 @@ class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    super.setEventListeners();
-    this._form = this._popupSelector.querySelector(".modal__form");
     this._form.addEventListener("submit", (evt) => {
         evt.preventDefault();
         this._formSubmit(this._getInputValues());
         this.closeModal();
     });
+
+    super.setEventListeners();
   }
 
   closeModal() {
