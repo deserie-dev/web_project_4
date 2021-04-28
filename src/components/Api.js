@@ -24,6 +24,7 @@ class Api {
     .catch(err => console.log(err))
   }
 
+  
   //Add new card
   // POST https://around.nomoreparties.co/v1/group-10/cards
   addCard(values) {

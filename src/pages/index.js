@@ -136,6 +136,11 @@ api.getInitialCards().then((res) => {
 
 });
 
+//Preview card modal
+const imagePopup = new PopupWithImage(".modal_type_preview");
+imagePopup.setEventListeners();
+
+
 function handleCardClick (name, link) {
   imagePopup.openModal(name, link);
 }
@@ -165,8 +170,73 @@ profileEditButton.addEventListener("click", () => {
   formOccupation.value = user.occupation
 });
 
-//Preview card modal
-const imagePopup = new PopupWithImage(".modal_type_preview");
-imagePopup.setEventListeners();
 
 export { profileName,profileOccupation };
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//New Place modal for creating a new card using addcard api
+//   const editImageForm = new PopupWithForm(
+//     ".modal_type_create",
+//     (values) => {
+//       api.addCard({name: values.titleInput, link: values.imageLinkInput})
+//       .then((values) => {
+//         cards.addItem(createCard(values));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//     },
+//   );
+
+//   editImageForm.setEventListeners();
+//   addButton.addEventListener("click", () => {
+//   editImageForm.openModal();
+//   });
+
+
+//   function createCard (cardItem) {
+//     const newCard = new Card({
+//       cardData: cardItem,
+//       handleCardClick: (cardData) => {
+//         imagePopup.openModal(cardData);
+//       },
+//     });
+//     const cardElement = newCard.generateCard();
+//     return cardElement;
+//   }
+
+// });
+ 
+// const profileInfo = new UserInfo(profileName, profileOccupation);
+// profileInfo.setUserInfo({newName: userInfo.name, newOccupation: userInfo.occupation});
+
+// const editProfileForm = new PopupWithForm(
+//   ".modal_type_edit",
+//   (values) => {    
+//     api.updateProfile({
+//       name: values.profileName,
+//       about: values.profileOccupation,
+//     }) 
+//     .then((values) => {
+//       profileInfo.setUserInfo({newName: values.name, newOccupation: values.occupation});
+//       console.log(values.name);
+//       console.log(values.occupation);
+//     })
+//     .catch((err) => {
+//     console.log(err);
+//     })
+//   },
+// );    
+
+// editProfileForm.setEventListeners();
+// profileEditButton.addEventListener("click", () => {
+//   profileEditButton.openModal();
+//   const user = profileInfo.getUserInfo();
+//   formName.value = user.name,
+//   formOccupation.value = user.occupation
+// });
