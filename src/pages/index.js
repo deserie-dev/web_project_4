@@ -1,12 +1,12 @@
 import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
+import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
-import PopupConfirmDelete from "../components/PopupConfirmDelete.js";
 
 
 //Modals
@@ -91,7 +91,8 @@ const api = new Api({
 });
 
 
-api.getInitialCards().then((res) => {
+api.getInitialCards()
+.then((res) => {
   //new Section
   const cards = new Section ({
     items: res,
@@ -103,22 +104,6 @@ api.getInitialCards().then((res) => {
   );
   cards.renderer();
 
-  //New Place modal for creating a new card using addcard api
-  const editImageForm = new PopupWithForm({
-    popopupSelector: ".modal_type_create",
-    formSubmit: (values) => {
-      api.addCard(values)
-      .then((res) => {
-        cards.addItem(
-          createCard({name: values.title, link: values.image})
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    },
-  });
-
   //new Card
   function createCard (cardData) {
     const newCard = new Card(
@@ -129,12 +114,30 @@ api.getInitialCards().then((res) => {
     return cardElement;
   }
 
-  editImageForm.setEventListeners();
+  //New Place modal for creating a new card using addcard api
+  const editImageForm = new PopupWithForm({
+    popopupSelector: ".modal_type_create",
+    formSubmit: (values) => {
+      api.addCard(values)
+      .then((values) => {
+        cards.addItem(
+          createCard({name: values.title, link: values.image})
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
+  });
+
+  // editImageForm.setEventListeners();
   addButton.addEventListener("click", function() {
   editImageForm.openModal();
   });
 
-});
+  
+}); //the end
+
 
 //Preview card modal
 const imagePopup = new PopupWithImage(".modal_type_preview");
@@ -148,7 +151,10 @@ function handleCardClick (name, link) {
 api.getUserInfo()
 .then((res) => {
   profileInfo.setUserInfo(res.name, res.about);
-});
+})
+.catch((err) => {
+    console.log(err);
+  })
 
 //Render user profile information  
 const profileInfo = new UserInfo({
@@ -158,16 +164,29 @@ const profileInfo = new UserInfo({
 
 const editProfileForm = new PopupWithForm({
   popopupSelector: ".modal_type_edit",
-  formSubmit: (values) => {     
-    profileInfo.setUserInfo(values.name, values.occupation);
+  formSubmit: (values) => {
+    // api.updateProfile({
+    //   name: values.profileName,
+    //   about: values.profileOccupation,
+    // }) 
+    // .then((values) => {
+      profileInfo.setUserInfo(values.name, values.occupation);
+      console.log(values.name);
+      console.log(values.occupation);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // })    
   },
 });    
 
-editProfileForm.setEventListeners();
+// editProfileForm.setEventListeners();
 profileEditButton.addEventListener("click", () => {
+  console.log("Profile form clicked");
   const user = profileInfo.getUserInfo();
   formName.value = user.name,
   formOccupation.value = user.occupation
+  editProfileForm.openModal();
 });
 
 
@@ -218,18 +237,7 @@ export { profileName,profileOccupation };
 // const editProfileForm = new PopupWithForm(
 //   ".modal_type_edit",
 //   (values) => {    
-//     api.updateProfile({
-//       name: values.profileName,
-//       about: values.profileOccupation,
-//     }) 
-//     .then((values) => {
-//       profileInfo.setUserInfo({newName: values.name, newOccupation: values.occupation});
-//       console.log(values.name);
-//       console.log(values.occupation);
-//     })
-//     .catch((err) => {
-//     console.log(err);
-//     })
+    
 //   },
 // );    
 
