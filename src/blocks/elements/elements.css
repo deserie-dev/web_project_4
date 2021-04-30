@@ -4,6 +4,7 @@
 @import url("./__item/elements__item.css");
 @import url("./__title/elements__title.css");
 @import url("./__delete-button/elements__delete-button.css");
+@import url("./__delete-button/_visible/elements__delete-button_visible.css");
 
 .elements {
   position: relative;

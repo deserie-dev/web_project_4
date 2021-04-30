@@ -6,7 +6,7 @@ class Section {
   }
 
   renderer() {
-    this._items.forEach((item) => {this._renderer(item);
+    this._items.forEach((input) => {this._renderer(input);
     });
   }
 
