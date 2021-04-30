@@ -1,0 +1,11 @@
+.modal__title_type_delete {
+  margin-bottom: 0;
+  margin-top: 34px;
+  max-width: 358px;
+}
+
+@media screen and (max-width: 650px) {
+  .odal__title_type_delete {
+    max-width: 200px;
+  }
+}
