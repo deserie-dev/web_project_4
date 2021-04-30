@@ -114,7 +114,6 @@ api.getInitialCards()
     return cardElement;
   }
 
-
   //New Place modal for creating a new card using addcard api
   const editImageForm = new PopupWithForm({
     popopupSelector: ".modal_type_create",
@@ -140,31 +139,35 @@ api.getInitialCards()
   editImageForm.setEventListeners();
 }); //the end
 
+  // editImageForm.setEventListeners();
+  addButton.addEventListener("click", function() {
+  editImageForm.openModal();
+  });
 
 //Preview card modal
 const imagePopup = new PopupWithImage(".modal_type_preview");
 
 
+<<<<<<< HEAD
 
 function handleCardClick (name, link) {
   imagePopup.openModal(name, link);
 }
 
 api.getUserInfo()
-.then((res) => {
   profileInfo.setUserInfo(res.name, res.about);
 })
 .catch((err) => {
     console.log(err);
   })
 
-//Render user profile information  
-const profileInfo = new UserInfo({
-  name: profileName,
-  occupation: profileOccupation
-});
+=======
+function handleCardClick (name, link) {
+  imagePopup.openModal(name, link);
+}
 
-const editProfileForm = new PopupWithForm({
+api.getUserInfo()
+.then((res) => {
   popopupSelector: ".modal_type_edit",
   formSubmit: (values) => {
     // api.updateProfile({
@@ -182,7 +185,11 @@ const editProfileForm = new PopupWithForm({
   },
 });    
 
+<<<<<<< HEAD
 
+=======
+// editProfileForm.setEventListeners();
+>>>>>>> 9155cae1a51a874b353f59e0b4c492d90bee429a
 profileEditButton.addEventListener("click", () => {
   console.log("Profile form clicked");
   const user = profileInfo.getUserInfo();
@@ -190,6 +197,7 @@ profileEditButton.addEventListener("click", () => {
   formOccupation.value = user.occupation
   editProfileForm.openModal();
 });
+<<<<<<< HEAD
 
 
 editProfileForm.setEventListeners();
@@ -197,3 +205,65 @@ imagePopup.setEventListeners();
 
 
 export { profileName,profileOccupation };
+=======
+
+
+export { profileName,profileOccupation };
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//New Place modal for creating a new card using addcard api
+//   const editImageForm = new PopupWithForm(
+//     ".modal_type_create",
+//     (values) => {
+//       api.addCard({name: values.titleInput, link: values.imageLinkInput})
+//       .then((values) => {
+//         cards.addItem(createCard(values));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//     },
+//   );
+
+//   editImageForm.setEventListeners();
+//   addButton.addEventListener("click", () => {
+//   editImageForm.openModal();
+//   });
+
+
+//   function createCard (cardItem) {
+//     const newCard = new Card({
+//       cardData: cardItem,
+//       handleCardClick: (cardData) => {
+//         imagePopup.openModal(cardData);
+//       },
+//     });
+//     const cardElement = newCard.generateCard();
+//     return cardElement;
+//   }
+
+// });
+ 
+// const profileInfo = new UserInfo(profileName, profileOccupation);
+// profileInfo.setUserInfo({newName: userInfo.name, newOccupation: userInfo.occupation});
+
+// const editProfileForm = new PopupWithForm(
+//   ".modal_type_edit",
+//   (values) => {    
+    
+//   },
+// );    
+
+// editProfileForm.setEventListeners();
+// profileEditButton.addEventListener("click", () => {
+//   profileEditButton.openModal();
+//   const user = profileInfo.getUserInfo();
+//   formName.value = user.name,
+//   formOccupation.value = user.occupation
+// });
+>>>>>>> 9155cae1a51a874b353f59e0b4c492d90bee429a
