@@ -15,15 +15,15 @@
     </header>
 
     <main class="content">
-
+    
       <section class="profile">
         <img class="profile__image" src="<%=require('./images/jacquescousteau.jpg')%>" alt="Profile Picture">
         <div class="profile__content">
           <div class="profile__details">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name"></h1>
             <button type="button" aria-label="edit button" class="profile__edit"></button>
           </div>
-          <p class="profile__occupation">Explorer</p>
+          <p class="profile__occupation"></p>
         </div>
         <button class="profile__add" type="button" aria-label="add button"></button>
       </section>
@@ -32,6 +32,7 @@
         </ul>
       </section>
     </main>
+
 
     <footer class="footer">
       <p class="footer__author">&copy; 2021 Around The U.S.</p>
@@ -59,13 +60,14 @@
           <span id="placeTitle-error" class="modal__error"></span>
           <input id="placeLink" class="modal__form-control modal__form-control_input_image" type="url" placeholder="Image Link" name="imageLinkInput" required>
           <span id="placeLink-error" class="modal__error"></span>
-          <button class="modal__form-submit" type="submit" aria-label="save button">Create</button>
+          <button class="modal__form-submit save-btn" type="submit" aria-label="save button">Create</button>
         </form>
         <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
       </div>
     </div>
 
-    <div class="modal modal_type_preview">
+
+    <div class="popup modal modal_type_preview">
       <div class="modal__container modal__container_preview">
         <button class="modal__close-button  modal__close-button_preview" type="button" aria-label="close button"></button>
         <figure>
@@ -81,10 +83,9 @@
           <button class="elements__delete-button" type="button" aria-label="delete button"></button>
           <div class="elements__heading">
             <h2 class="elements__title"></h2>
-            <button class="elements__like" type="button" aria-label="like button"></button>
           </div>
         </li>
     </template>
-  </div> 
+  </div>
 </body>
 </html>
