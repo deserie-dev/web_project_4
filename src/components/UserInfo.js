@@ -1,13 +1,13 @@
 class UserInfo {
   constructor({ name, occupation }) {
-    this._name = name;
-    this._occupation = occupation;
+    this._name = document.querySelector(name);
+    this._occupation = document.querySelector(occupation);
   }
 
   getUserInfo() {
     return {
       name: this._name.textContent,
-      occupation: this._occupation.textContent,
+      occupation: this._occupation.textContent
     }
   }
 
@@ -15,7 +15,6 @@ class UserInfo {
     this._name.textContent = name;
     this._occupation.textContent = occupation;
   }
-
 }
 
 export default UserInfo;
