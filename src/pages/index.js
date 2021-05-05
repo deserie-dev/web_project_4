@@ -1,5 +1,5 @@
 import "./index.css";
-import initialCards from "../scripts/initialcards.js";
+import Api from "../components/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -76,72 +76,88 @@ const addNewFormValidator = new FormValidator(settings, addNewForm);
 editFormValidator.enableValidation();
 addNewFormValidator.enableValidation();
 
-/////////////////
-////Functions
-////////////////
-
-
-const createCard = cardData => {
-  const newCard = new Card(cardData, () => {
-    imagePopup.openModal(cardData.name, cardData.link);
-  });
-
-    const cardElement = newCard.generateCard();
-
-    return cardElement;
-
-}
-
-const cards = new Section (
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      cards.addItem(createCard(cardData));
-    },
-  },
-  ".elements__container",
-);
-cards.renderer();
-
-
-const imagePopup = new PopupWithImage(".modal_type_preview");
-imagePopup.setEventListeners();
-
-
-const editImageForm = new PopupWithForm({
-  popupSelector: ".modal_type_create",
-  formSubmit: (values) => {
-    cards.addItem(createCard({name: values.titleInput, link: values.imageLinkInput}));
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-10",
+  headers: {
+    authorization: "3e6a2d00-5fce-4033-96ec-e7320045c084",
+    "Content-Type": "application/json"
   }
 });
-  
-editImageForm.setEventListeners();
-addButton.addEventListener("click", function() {
-  editImageForm.openModal();
-});
 
 
-const profileInfo = new UserInfo({
-  name:".profile__name",
-  occupation: ".profile__occupation"
-});
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userInformation, initialCards]) => {
+      const userId = userInformation._id;
 
+      const cards = new Section ({
+        items: initialCards,
+        renderer: (cardData) => {
+          cards.addItem(createCard(cardData));
+        },
+      },
+      ".elements__container",
+      );
+      cards.renderer();
 
-const editProfileForm = new PopupWithForm({
-  popupSelector: ".modal_type_edit",
-  formSubmit: (values) => {
-    profileInfo.setUserInfo(values.profileNameInput, values.profileOccupationInput);
-  }
-});
-editProfileForm.setEventListeners();
+      const profileInfo = new UserInfo({
+        name: ".profile__name",
+        occupation: ".profile__occupation"
+        // name: userInformation.name,
+        // occupation: userInformation.about
+      });
+      // profileInfo.setUserInfo({name: profileInfo.name, occupation: profileInfo.about})
+      profileInfo.setUserInfo({name: userInformation.name, occupation: userInformation.about})
 
+      const editImageForm = new PopupWithForm({
+        popupSelector: ".modal_type_create",
+        formSubmit: (values) => {
+          api.addCard({name: values.titleInput, link: values.imageLinkInput})
+            .then(values => {
+              cards.addItem(createCard(values))
+            })  
+            .catch((err) => {
+              console.log(err);
+            })
+        }
+      });
 
-profileEditButton.addEventListener("click", function() {
-  editProfileForm.openModal();
-  const {name, occupation} = profileInfo.getUserInfo();
-  formName.value = name;
-  formOccupation.value = occupation;
-})
+      const editProfileForm = new PopupWithForm({
+        popupSelector: ".modal_type_edit",
+        formSubmit: (values) => {
+          api.editProfile({name: values.profileNameInput, about: values.profileOccupationInput})
+          profileInfo.setUserInfo(values.profileNameInput, values.profileOccupationInput);
+        }
+      });
+
+      function createCard(cardData) {
+        const newCard = new Card(cardData, () => {
+          imagePopup.openModal(cardData.name, cardData.link);
+        });
+      const cardElement = newCard.generateCard();
+      return cardElement;
+      }
+
+      const imagePopup = new PopupWithImage(".modal_type_preview");
+      
+      //Event listeners
+      imagePopup.setEventListeners();
+      editImageForm.setEventListeners();
+      editProfileForm.setEventListeners();
+
+      addButton.addEventListener("click", function() {
+        editImageForm.openModal();
+      });
+
+      profileEditButton.addEventListener("click", function() {
+        editProfileForm.openModal();
+        const {name, occupation} = profileInfo.getUserInfo();
+        formName.value = name;
+        formOccupation.value = occupation;
+      })
+    }) 
+    .catch((err) => {
+          console.log(err);
+    })
 
 
 export { profileName,profileOccupation };

@@ -11,7 +11,7 @@ class UserInfo {
     }
   }
 
-  setUserInfo(name, occupation) {
+  setUserInfo({name, occupation}) {
     this._name.textContent = name;
     this._occupation.textContent = occupation;
   }
