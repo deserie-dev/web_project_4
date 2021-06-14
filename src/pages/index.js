@@ -16,6 +16,7 @@ const imageModalWindow = document.querySelector(".modal_type_preview");
 //Buttons
 const profileEditButton = document.querySelector(".profile__edit");
 const addButton = document.querySelector(".profile__add");
+const editAvatarButton = document.querySelector(".profile__image-edit");
 const profileCloseButton = profileModal.querySelector(".modal__close-button_profile");
 const imageCloseButton = document.querySelector(".modal__close-button_preview");
 
@@ -84,10 +85,12 @@ const api = new Api({
   }
 });
 
+//api.getUserInfo for loading user info from the server
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-    .then(([userInformation, initialCards]) => {
-      const userId = userInformation._id;
+    .then(([userInfo, initialCards]) => {
+      // profileInfo.setUserInfo(userInfo);
+      // const userId = userInfo._id;
 
       const cards = new Section ({
         items: initialCards,
@@ -101,12 +104,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
       const profileInfo = new UserInfo({
         name: ".profile__name",
-        occupation: ".profile__occupation"
-        // name: userInformation.name,
-        // occupation: userInformation.about
+        occupation: ".profile__occupation",
+        avatar: ".profile__image"
       });
       // profileInfo.setUserInfo({name: profileInfo.name, occupation: profileInfo.about})
-      profileInfo.setUserInfo({name: userInformation.name, occupation: userInformation.about})
+      profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about, avatarSrc: userInfo.avatar});
 
       const editImageForm = new PopupWithForm({
         popupSelector: ".modal_type_create",
@@ -138,11 +140,30 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       }
 
       const imagePopup = new PopupWithImage(".modal_type_preview");
+
+      //EDIT PROFILE PIC/AVATAR
+      const editAvatarModal = new PopupWithForm({
+        popupSelector: ".modal_type_avatar",
+        formSubmit: (values) => {
+        api.editAvatar(values)
+          .then((values) => {
+            profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about, avatarSrc: userInfo.avatar});
+          })
+          .catch((err) => {
+              console.log(err);
+            })
+        }    
+      });
       
       //Event listeners
       imagePopup.setEventListeners();
       editImageForm.setEventListeners();
       editProfileForm.setEventListeners();
+      editAvatarModal.setEventListeners();
+
+      editAvatarButton.addEventListener("click", function() {
+        editAvatarModal.openModal();
+      });
 
       addButton.addEventListener("click", function() {
         editImageForm.openModal();

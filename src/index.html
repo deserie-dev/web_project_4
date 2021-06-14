@@ -17,7 +17,8 @@
     <main class="content">
 
       <section class="profile">
-        <img class="profile__image" src="<%=require('./images/jacquescousteau.jpg')%>" alt="Profile Picture">
+        <img class="profile__image" src="#" alt="Profile Picture">
+        <img class="profile__image-edit" src="<%=require('./images/edit.svg')%>" alt="Edit Avatar Button">
         <div class="profile__content">
           <div class="profile__details">
             <h1 class="profile__name"></h1>
@@ -70,6 +71,16 @@
       </div>
     </div>
 
+    <div class="modal modal_type_delete">
+      <div class="modal__container">
+        <form class="modal__form modal__form_type_delete" name="delete-confirmation" novalidate>
+          <h2 class="modal__delete-title">Are you sure?</h2>
+          <button class="modal__form-submit" type="button">Yes</button>
+        </form>
+        <button class="modal__close-button modal__close-button_delete" type="button" aria-label="close button"></button>
+      </div>
+    </div>
+
     <div class="modal modal_type_preview">
       <div class="modal__container modal__container_preview">
         <button class="modal__close-button  modal__close-button_preview" type="button"
@@ -78,6 +89,19 @@
           <img class="modal__image" src="#" alt=" ">
           <figcaption class="modal__image-title"></figcaption>
         </figure>
+      </div>
+    </div>
+
+    <div class="modal modal_type_avatar">
+      <div class="modal__container">
+        <form class="modal__form addCard-form" name="create-form">
+          <h3 class="modal__title">Change profile picture</h3>
+          <input id="avatar-url" class="modal__form-control modal__form-control_avatar" type="url"
+            placeholder="Image Link" name="link" required>
+          <span id="avatar-url-error" class="modal__error"></span>
+          <button class="modal__form-submit" type="submit" aria-label="save button">Save</button>
+        </form>
+        <button class="modal__close-button modal__close-button_place" type="button" aria-label="close button"></button>
       </div>
     </div>
 

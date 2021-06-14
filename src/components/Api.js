@@ -37,7 +37,7 @@ class Api {
   }
 
   // https://around.nomoreparties.co/v1/group-10/cards/cardId
-  removeCard(cardID) {
+  deleteCard(cardID) {
     return fetch(this._baseUrl + "/cards/" + cardID, {
       headers: this._headers,
       method: "DELETE",
@@ -66,7 +66,7 @@ class Api {
           headers: this._headers,
           method: "PATCH",
           body: JSON.stringify({
-              avatar
+            avatar
           })
       })
       .then(res => res.ok ? res.json() : Promise.reject("Failed to update profile picture!" + res.statusText))

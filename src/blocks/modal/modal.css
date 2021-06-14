@@ -11,6 +11,7 @@
 @import url("./__error/modal__error.css");
 @import url("./__form-submit/modal__form-submit.css");
 @import url("./__form-submit/_disabled/modal__form-submit_disabled.css");
+@import url("./__delete-title/modal__delete-title.css");
 
 .modal {
   position: fixed;

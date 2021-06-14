@@ -1,8 +1,20 @@
 .profile__image {
   border-radius: 50%;
   margin: 0px 30px 0px 0px;
+  height: 100%;
+  max-height: 120px;
   max-width: 120px;
   width: 100%;
+  overflow: hidden;
+  transition: opacity 0.5s linear 0s;
+}
+
+.profile__image:hover + .profile__image-edit {
+  opacity: 1;
+}
+
+.profile__image:hover {
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 1024px) {

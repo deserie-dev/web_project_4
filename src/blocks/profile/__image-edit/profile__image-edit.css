@@ -1,0 +1,8 @@
+.profile__image-edit {
+  position: absolute;
+  height: 26px;
+  margin-left: 47px;
+  opacity: 0;
+  transition: opacity 0.5s linear 0s;
+  width: 26px;
+}
