@@ -105,8 +105,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       const cards = new Section ({
         items: initialCards,
         renderer: (cardData) => {
-          const cardElement = createCard(cardData);
-          cards.addItem(cardElement);
+          cards.addItem(createCard(cardData));
         },
       },
       ".elements__container",
@@ -195,97 +194,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
           console.log(err);
     })
 
-// api.getAppInfo()
-//   .then(([userInfo, initialCards]) => {
-
-//     const cards = new Section ({
-//       items: initialCards,
-//       renderer: (cardData) => {
-//         cards.addItem(createCard(cardData));
-//       },
-//     },
-//     ".elements__container",
-//     );
-//     cards.renderer();
-
-//     const editImageForm = new PopupWithForm({
-//       popupSelector: ".modal_type_create",
-//       formSubmit: (values) => {
-//         api.addCard({name: values.titleInput, link: values.imageLinkInput})
-//           .then(values => {
-//             cards.addItem(createCard(values))
-//           })  
-//           .catch((err) => {
-//             console.log(err);
-//           })
-//       }
-//     });
-
-//     const profileInfo = new UserInfo({
-//       name: ".profile__name",
-//       occupation: ".profile__occupation",
-//       avatar: ".profile__image"
-//     });
-      
-//     profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about});
-//     profileInfo.setUserInfo({avatar: userInfo.avatar});
-
-//     const editProfileForm = new PopupWithForm({
-//       popupSelector: ".modal_type_edit",
-//       formSubmit: (values) => {
-//         api.editProfile({name: values.profileNameInput, about: values.profileOccupationInput})
-//         .then(() => {
-//           profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about});
-//         })
-//       }
-//     });
-
-//     const editAvatarModal = new PopupWithForm({
-//       popupSelector: ".modal_type_avatar",
-//       formSubmit: (values) => {
-//         api.editAvatar(values.avatar)
-//           .then((values) => {
-//             profileInfo.setUserInfo({avatar: values.avatar});
-//           })
-//           .catch((err) => {
-//               console.log(err);
-//           })
-//       }    
-//     });
-
-//     function createCard(cardData) {
-//       const newCard = new Card(cardData, () => {
-//         imagePopup.openModal(cardData.name, cardData.link);
-//       });
-//       const cardElement = newCard.generateCard();
-//       return cardElement;
-//     }
-
-//     const imagePopup = new PopupWithImage(".modal_type_preview");
-
-//     imagePopup.setEventListeners();
-//     editImageForm.setEventListeners();
-//     editProfileForm.setEventListeners();
-//     editAvatarModal.setEventListeners();
-
-//     editAvatarButton.addEventListener("click", function() {
-//       editAvatarModal.openModal();
-//     });
-
-//     addButton.addEventListener("click", function() {
-//       editImageForm.openModal();
-//     });
-
-//     profileEditButton.addEventListener("click", function() {
-//       editProfileForm.openModal();
-//       const {name, occupation} = profileInfo.getUserInfo();
-//       formName.value = name;
-//       formOccupation.value = occupation;
-//     })
-
-
-//   })
-//   .catch(err => console.log(err))
 
 
 export { profileName,profileOccupation };

@@ -12,10 +12,10 @@ class UserInfo {
     }
   }
 
-  setUserInfo({name, occupation, avatar}) {
+  setUserInfo({name, about, avatar}) {
     this._name.textContent = name;
-    this._occupation.textContent = occupation;
-    this._avatar.src = avatar;
+    this._occupation.textContent = about;
+    this._avatar.src =avatar;
   }
 
   // getUserAvatar() {
