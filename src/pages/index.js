@@ -54,6 +54,14 @@ const list = document.querySelector(".elements__container");
 //Variable for modal overlays. Used with forEach method to enable users to close modals by clicking anywhere outside a modal
 const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 
+const imagePopup = new PopupWithImage(".modal_type_preview");
+const profileInfo = new UserInfo({
+        name: ".profile__name",
+        occupation: ".profile__occupation",
+        avatar: ".profile__image"
+      });      
+
+
 ///////////////////
 //FormValidator
 ///////////////////
@@ -69,13 +77,17 @@ const settings = {
 
 const editForm = document.querySelector(".modal__form_type_profile");
 const addNewForm = document.querySelector(".addCard-form");
+const avatarForm = document.querySelector(".modal__form_type_avatar");
 
 const editFormValidator = new FormValidator(settings, editForm);
-
 const addNewFormValidator = new FormValidator(settings, addNewForm);
+const avatarFormValidator = new FormValidator(settings, avatarForm);
 
 editFormValidator.enableValidation();
 addNewFormValidator.enableValidation();
+avatarFormValidator .enableValidation();
+
+///////////////////////////////////////////////////////////////////////////
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-10",
@@ -85,41 +97,38 @@ const api = new Api({
   }
 });
 
-//api.getUserInfo for loading user info from the server
-
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userInfo, initialCards]) => {
-      // profileInfo.setUserInfo(userInfo);
-      // const userId = userInfo._id;
+        profileInfo.setUserInfo(userInfo);
+      
 
       const cards = new Section ({
         items: initialCards,
         renderer: (cardData) => {
-          cards.addItem(createCard(cardData));
+          const cardElement = createCard(cardData);
+          cards.addItem(cardElement);
         },
       },
       ".elements__container",
       );
       cards.renderer();
 
-      const profileInfo = new UserInfo({
-        name: ".profile__name",
-        occupation: ".profile__occupation",
-        avatar: ".profile__image"
-      });
+      
       // profileInfo.setUserInfo({name: profileInfo.name, occupation: profileInfo.about})
-      profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about, avatarSrc: userInfo.avatar});
+      profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about, avatar: userInfo.avatar});
 
+      // Create a new card
       const editImageForm = new PopupWithForm({
         popupSelector: ".modal_type_create",
         formSubmit: (values) => {
           api.addCard({name: values.titleInput, link: values.imageLinkInput})
-            .then(values => {
-              cards.addItem(createCard(values))
+            .then(cardData => {
+              const cardElement = createCard(cardData);
+              cards.addItem(cardElement);
             })  
             .catch((err) => {
               console.log(err);
-            })
+            });
         }
       });
 
@@ -127,7 +136,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         popupSelector: ".modal_type_edit",
         formSubmit: (values) => {
           api.editProfile({name: values.profileNameInput, about: values.profileOccupationInput})
-          profileInfo.setUserInfo(values.profileNameInput, values.profileOccupationInput);
+          .then((values) => {
+            profileInfo.setUserInfo(values);
+          })
+          .catch((err) => {
+              console.log(err);
+          });
         }
       });
 
@@ -139,21 +153,22 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       return cardElement;
       }
 
-      const imagePopup = new PopupWithImage(".modal_type_preview");
+      
 
       //EDIT PROFILE PIC/AVATAR
       const editAvatarModal = new PopupWithForm({
         popupSelector: ".modal_type_avatar",
         formSubmit: (values) => {
-        api.editAvatar(values)
+        api.editAvatar({ avatar: values["avatar-link"]})
           .then((values) => {
-            profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about, avatarSrc: userInfo.avatar});
+            profileInfo.setUserInfo(values);
           })
           .catch((err) => {
               console.log(err);
-            })
+          });
         }    
       });
+
       
       //Event listeners
       imagePopup.setEventListeners();
@@ -179,6 +194,98 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     .catch((err) => {
           console.log(err);
     })
+
+// api.getAppInfo()
+//   .then(([userInfo, initialCards]) => {
+
+//     const cards = new Section ({
+//       items: initialCards,
+//       renderer: (cardData) => {
+//         cards.addItem(createCard(cardData));
+//       },
+//     },
+//     ".elements__container",
+//     );
+//     cards.renderer();
+
+//     const editImageForm = new PopupWithForm({
+//       popupSelector: ".modal_type_create",
+//       formSubmit: (values) => {
+//         api.addCard({name: values.titleInput, link: values.imageLinkInput})
+//           .then(values => {
+//             cards.addItem(createCard(values))
+//           })  
+//           .catch((err) => {
+//             console.log(err);
+//           })
+//       }
+//     });
+
+//     const profileInfo = new UserInfo({
+//       name: ".profile__name",
+//       occupation: ".profile__occupation",
+//       avatar: ".profile__image"
+//     });
+      
+//     profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about});
+//     profileInfo.setUserInfo({avatar: userInfo.avatar});
+
+//     const editProfileForm = new PopupWithForm({
+//       popupSelector: ".modal_type_edit",
+//       formSubmit: (values) => {
+//         api.editProfile({name: values.profileNameInput, about: values.profileOccupationInput})
+//         .then(() => {
+//           profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about});
+//         })
+//       }
+//     });
+
+//     const editAvatarModal = new PopupWithForm({
+//       popupSelector: ".modal_type_avatar",
+//       formSubmit: (values) => {
+//         api.editAvatar(values.avatar)
+//           .then((values) => {
+//             profileInfo.setUserInfo({avatar: values.avatar});
+//           })
+//           .catch((err) => {
+//               console.log(err);
+//           })
+//       }    
+//     });
+
+//     function createCard(cardData) {
+//       const newCard = new Card(cardData, () => {
+//         imagePopup.openModal(cardData.name, cardData.link);
+//       });
+//       const cardElement = newCard.generateCard();
+//       return cardElement;
+//     }
+
+//     const imagePopup = new PopupWithImage(".modal_type_preview");
+
+//     imagePopup.setEventListeners();
+//     editImageForm.setEventListeners();
+//     editProfileForm.setEventListeners();
+//     editAvatarModal.setEventListeners();
+
+//     editAvatarButton.addEventListener("click", function() {
+//       editAvatarModal.openModal();
+//     });
+
+//     addButton.addEventListener("click", function() {
+//       editImageForm.openModal();
+//     });
+
+//     profileEditButton.addEventListener("click", function() {
+//       editProfileForm.openModal();
+//       const {name, occupation} = profileInfo.getUserInfo();
+//       formName.value = name;
+//       formOccupation.value = occupation;
+//     })
+
+
+//   })
+//   .catch(err => console.log(err))
 
 
 export { profileName,profileOccupation };

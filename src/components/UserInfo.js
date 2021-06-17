@@ -8,16 +8,23 @@ class UserInfo {
   getUserInfo() {
     return {
       name: this._name.textContent,
-      occupation: this._occupation.textContent,
-      avatar: this._avatar.src
+      occupation: this._occupation.textContent
     }
   }
 
-  setUserInfo({name, occupation, avatarSrc}) {
+  setUserInfo({name, occupation, avatar}) {
     this._name.textContent = name;
     this._occupation.textContent = occupation;
-    this._avatar.src = avatarSrc;
+    this._avatar.src = avatar;
   }
+
+  // getUserAvatar() {
+  //   return {avatar: this._avatar.src}
+  // }
+
+  // setUserAvatar({avatar}) {
+  //   this._avatar.src = avatar;
+  // }
 
 }
 
