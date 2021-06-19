@@ -16,6 +16,7 @@ class Api {
   // https://around.nomoreparties.co/v1/group-10/users/me
   getUserInfo() {
     return fetch(this._baseUrl + "/users/me", {
+      method: "GET",
       headers: this._headers
     })
       .then(res => res.ok ? res.json() : Promise.reject("Failed to get user info !" + res.statusText))

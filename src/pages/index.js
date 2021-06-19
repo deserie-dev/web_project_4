@@ -29,13 +29,13 @@ const addForm = document.querySelector(".addCard-form");
 
 //Form Inputs
 const formName = profileForm.querySelector(".modal__form-control_input_name");
-const formOccupation = profileForm.querySelector(".modal__form-control_input_occupation");
+const formAbout = profileForm.querySelector(".modal__form-control_input_occupation");
 const formTitle = document.querySelector(".modal__form-control_input_title");
 const formImage = document.querySelector(".modal__form-control_input_image");
 
 //Profile Section Info
 const profileName = document.querySelector(".profile__name");
-const profileOccupation = document.querySelector(".profile__occupation");
+const profileAbout = document.querySelector(".profile__occupation");
 
 //New Place Info
 const placeTitle = document.querySelector(".placeTitle");
@@ -57,7 +57,7 @@ const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 const imagePopup = new PopupWithImage(".modal_type_preview");
 const profileInfo = new UserInfo({
         name: ".profile__name",
-        occupation: ".profile__occupation",
+        about: ".profile__occupation",
         avatar: ".profile__image"
       });      
 
@@ -99,7 +99,7 @@ const api = new Api({
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userInfo, initialCards]) => {
-        profileInfo.setUserInfo(userInfo);
+         profileInfo.setUserInfo(userInfo);
       
 
       const cards = new Section ({
@@ -114,7 +114,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
       
       // profileInfo.setUserInfo({name: profileInfo.name, occupation: profileInfo.about})
-      profileInfo.setUserInfo({name: userInfo.name, occupation: userInfo.about, avatar: userInfo.avatar});
+      profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar});
 
       // Create a new card
       const editImageForm = new PopupWithForm({
@@ -185,9 +185,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
       profileEditButton.addEventListener("click", function() {
         editProfileForm.openModal();
-        const {name, occupation} = profileInfo.getUserInfo();
+        const {name, about} = profileInfo.getUserInfo();
         formName.value = name;
-        formOccupation.value = occupation;
+        formAbout.value = about;
       })
     }) 
     .catch((err) => {
@@ -196,4 +196,4 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 
 
-export { profileName,profileOccupation };
+export { profileName,profileAbout };
