@@ -37,6 +37,8 @@ const formImage = document.querySelector(".modal__form-control_input_image");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__occupation");
 
+const profileAvatarInput = document.querySelector(".profile__image");
+
 //New Place Info
 const placeTitle = document.querySelector(".placeTitle");
 const placeLink = document.querySelector(".placeLink");
@@ -55,11 +57,13 @@ const list = document.querySelector(".elements__container");
 const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 
 const imagePopup = new PopupWithImage(".modal_type_preview");
+
 const profileInfo = new UserInfo({
         name: ".profile__name",
         about: ".profile__occupation",
         avatar: ".profile__image"
       });      
+
 
 
 ///////////////////
@@ -100,6 +104,9 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userInfo, initialCards]) => {
          profileInfo.setUserInfo(userInfo);
+         profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about});
+         profileInfo.setAvatarInfo({avatar: userInfo.avatar});
+  
       
 
       const cards = new Section ({
@@ -112,9 +119,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       );
       cards.renderer();
 
-      
-      // profileInfo.setUserInfo({name: profileInfo.name, occupation: profileInfo.about})
-      profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar});
 
       // Create a new card
       const editImageForm = new PopupWithForm({
@@ -130,6 +134,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
             });
         }
       });
+
+
 
       const editProfileForm = new PopupWithForm({
         popupSelector: ".modal_type_edit",
@@ -158,9 +164,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       const editAvatarModal = new PopupWithForm({
         popupSelector: ".modal_type_avatar",
         formSubmit: (values) => {
-        api.editAvatar({ avatar: values["avatar-link"]})
+          api.editAvatar({avatar: values.avatarInput})
           .then((values) => {
-            profileInfo.setUserInfo(values);
+            profileInfo.setAvatarInfo(values);
           })
           .catch((err) => {
               console.log(err);
