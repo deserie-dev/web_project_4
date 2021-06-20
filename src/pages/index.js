@@ -58,11 +58,7 @@ const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 
 const imagePopup = new PopupWithImage(".modal_type_preview");
 
-const profileInfo = new UserInfo({
-        name: ".profile__name",
-        about: ".profile__occupation",
-        avatar: ".profile__image"
-      });      
+   
 
 
 
@@ -103,9 +99,14 @@ const api = new Api({
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userInfo, initialCards]) => {
-         profileInfo.setUserInfo(userInfo);
-         profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about});
-         profileInfo.setAvatarInfo({avatar: userInfo.avatar});
+
+      const profileInfo = new UserInfo({
+        name: ".profile__name",
+        about: ".profile__occupation",
+        avatar: ".profile__image"
+      });   
+         profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar});
+        //  profileInfo.setAvatarInfo({avatar: userInfo.avatar});
   
       
 
@@ -135,8 +136,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         }
       });
 
-
-
+      
       const editProfileForm = new PopupWithForm({
         popupSelector: ".modal_type_edit",
         formSubmit: (values) => {
@@ -164,9 +164,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       const editAvatarModal = new PopupWithForm({
         popupSelector: ".modal_type_avatar",
         formSubmit: (values) => {
-          api.editAvatar({avatar: values.avatarInput})
+          api.editAvatar(values)
           .then((values) => {
-            profileInfo.setAvatarInfo(values);
+            profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar});
           })
           .catch((err) => {
               console.log(err);
