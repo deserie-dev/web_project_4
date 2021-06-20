@@ -164,9 +164,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       const editAvatarModal = new PopupWithForm({
         popupSelector: ".modal_type_avatar",
         formSubmit: (values) => {
-          api.editAvatar(values)
+          api.editAvatar({avatar: values.avatarInput})
           .then((values) => {
-            profileInfo.setUserInfo({name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar});
+            profileInfo.setUserInfo({name: values.name, about: values.about, avatar: values.avatar});
           })
           .catch((err) => {
               console.log(err);

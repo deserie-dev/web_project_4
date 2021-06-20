@@ -62,12 +62,12 @@ class Api {
   }
 
   // https://around.nomoreparties.co/v1/group-10/users/me/avatar/
-  editAvatar(avatar) {
+  editAvatar({avatar}) {
       return fetch(this._baseUrl + "/users/me/avatar", {
           headers: this._headers,
           method: "PATCH",
           body: JSON.stringify({
-            avatar
+            avatar: avatar,
           })
       })
       .then(res => res.ok ? res.json() : Promise.reject("Failed to update profile picture!" + res.statusText))
