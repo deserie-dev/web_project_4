@@ -5,6 +5,7 @@ class PopupWithForm extends Popup {
     super(popupSelector);
     this._formSubmit = formSubmit;
     this._form = this._popupSelector.querySelector(".modal__form");
+    this._button = this._popupSelector.querySelector(".modal__form-submit");
   }
 
   _getInputValues() {
@@ -29,11 +30,13 @@ class PopupWithForm extends Popup {
 
   openModal() {
     super.openModal();
+    this._button.textContent = "Save";
   }
 
   setEventListeners() {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      this._button.textContent = "Saving ...";
       this._formSubmit(this._getInputValues());
       this.closeModal();
     });
