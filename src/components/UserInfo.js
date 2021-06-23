@@ -18,18 +18,6 @@ class UserInfo {
     this._avatar.src = avatar;
   }
 
-  
-
-  // getAvatarInfo() {
-  //   return {
-  //     avatar: this._avatar.src
-  //   }
-  // }
-
-  // setAvatarInfo ({ avatar }) {
-  //   this._avatar.src = avatar;
-  // }
-
 
 }
 

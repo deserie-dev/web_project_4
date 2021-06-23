@@ -61,10 +61,6 @@ const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 const imagePopup = new PopupWithImage(".modal_type_preview");
 imagePopup.setEventListeners();
 
-//Modal to confirm before deleting image
-const confirmDeleteModal = new PopupConfirmDelete(".modal_type_delete");
-confirmDeleteModal.setEventListeners();
-
 ///////////////////
 //FormValidator
 ///////////////////
@@ -109,9 +105,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       avatar: ".profile__image"
     });
     profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
-    //  profileInfo.setAvatarInfo({avatar: userInfo.avatar});
-
-
+  
 
     const cards = new Section({
       items: initialCards,
@@ -152,6 +146,18 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       }
     });
 
+    //Modal to confirm before deleting image
+    const confirmDeleteModal = new PopupConfirmDelete({
+      popupSelector: ".modal_type_delete",
+      formSubmit: (card, cardId) => {
+        api.deleteCard(cardId).then(() => {
+          card.remove(cardId);
+          confirmDeleteModal.closeModal();
+        })
+      }
+    });
+
+       
 
     function createCard(cardData) {
       const newCard = new Card({
@@ -159,24 +165,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         handleCardClick: () => {
           imagePopup.openModal(cardData.name, cardData.link);
         },
-        handleDeleteCardClick: () => {
-          confirmDeleteModal.openModal();
-          confirmDeleteModal.deleteConfirmation(() => {
-            api.deleteCard(newCard.findId())
-              .then(() => {
-                newCard.handleTrashButton();
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-          })
-        }
+        handleDeleteCardClick: (evt) => {
+            confirmDeleteModal.openModal(evt, newCard._id);
+          }
       });
-
-      const cardElement = newCard.generateCard();
+       const cardElement = newCard.generateCard();
       return cardElement;
     }
-
 
 
     //EDIT PROFILE PIC/AVATAR
@@ -197,6 +192,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     editImageForm.setEventListeners();
     editProfileForm.setEventListeners();
     editAvatarModal.setEventListeners();
+    confirmDeleteModal.setEventListeners();
+    
 
     editAvatarButton.addEventListener("click", function () {
       editAvatarModal.openModal();
@@ -216,6 +213,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .catch((err) => {
     console.log(err);
   })
+
+  
 
 
 

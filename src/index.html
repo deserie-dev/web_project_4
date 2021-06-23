@@ -75,7 +75,7 @@
       <div class="modal__container">
         <form class="modal__form modal__form_type_delete" name="delete-confirmation" novalidate>
           <h2 class="modal__delete-title">Are you sure?</h2>
-          <button class="modal__form-submit modal__form-delete" type="button">Yes</button>
+          <button class="modal__form-submit modal__form-delete" type="submit">Yes</button>
         </form>
         <button class="modal__close-button modal__close-button_delete" type="button" aria-label="close button"></button>
       </div>
@@ -106,7 +106,7 @@
     </div>
 
     <template class="card-template">
-      <li class="elements__item">
+      <li id = "cardElement" class="elements__item">
         <img class="elements__image" src="#" alt="Place image">
         <button class="elements__delete-button" type="button" aria-label="delete button"></button>
         <div class="elements__heading">

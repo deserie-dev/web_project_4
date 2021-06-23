@@ -6,6 +6,7 @@ class Card {
         this._handleCardClick = handleCardClick;
         this._handleDeleteCardClick = handleDeleteCardClick;
         this._id = cardData._id;
+        // this._user = userData._id;
         this._ownerId = cardData.owner._id;
         this._owner = cardData.owner;
     }
@@ -28,9 +29,8 @@ class Card {
         evt.target.classList.toggle("elements__like_active");
     }
 
-    handleTrashButton() {
-        this._card.remove();
-        this._card = null;
+    handleTrashButton(evt) {
+        evt.target.closest(".elements__item").remove();
     }
 
     _setEventListeners() {
@@ -38,38 +38,32 @@ class Card {
         const cardImage = this._card.querySelector(".elements__image");
         const trashButton = this._card.querySelector(".elements__delete-button");
 
-
-        // if (userId === this._ownerId) {
-        //     trashButton.addEventListener("click", () => {
-        //         this._handleDeleteCardClick(this.id);
-        //     })
+        // if (!(this._user === this._ownerId)) {
+        //     trashButton.remove();
         // } else {
-        //     trashButton.classList.add("elements__delete-button_visible");
-        // };
+        //     this._trashButton.addEventListener("click", evt => {
+        //         this._handleDeleteCardClick(evt);
+        //     });
+        // }
+
 
         likeButton.addEventListener("click", this._handleLikeButton);
-        trashButton.addEventListener("click", () => this._handleDeleteCardClick());
+        trashButton.addEventListener("click", (evt) => this._handleDeleteCardClick(evt));
         cardImage.addEventListener("click", () => this._handleCardClick());
     }
 
 
-    generateCard(userId) {
+    generateCard() {
         const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
         this._card = cardTemplate.cloneNode(true);
         this._cardImage = this._card.querySelector(".elements__image");
         this._cardImageTitle = this._card.querySelector(".elements__title");
-        const trashButton = this._card.querySelector(".elements__delete-button");
-
-        if (userId === this._ownerId) {
-            trashButton.classList.add("elements__delete-button_visible");
-        };
-
-        // fill each element with corresponding initial content
+        
         this._cardImageTitle.textContent = this._name;
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
 
-        this._setEventListeners(userId);
+        this._setEventListeners();
 
         return this._card;
 
