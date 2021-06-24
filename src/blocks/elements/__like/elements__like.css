@@ -4,7 +4,8 @@
   background-color: transparent;
   background-repeat: no-repeat;
   margin: 0;
-  padding: 0px 0px 3px 0px;
+  padding: 0;
+  /* padding: 0px 0px 3px 0px; */
   height: 19px;
   width: 21px;
 }
