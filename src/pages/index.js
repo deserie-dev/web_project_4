@@ -167,9 +167,30 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         },
         handleDeleteCardClick: (evt) => {
             confirmDeleteModal.openModal(evt, newCard._id);
+        },
+        handleLikeCardClick: (likeButton, cardId) => {
+          if(likeButton.classList.contains("elements__like_active")) {
+            api.removeLike(cardId)
+              .then(res => {
+                newCard.displayTotalLikes(res.likes.length);
+                newCard.toggleLikeButton(likeButton);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            api.addLike(cardId)
+              .then(res => {
+                newCard.displayTotalLikes(res.likes.length);
+                newCard.toggleLikeButton(likeButton);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
-      });
-       const cardElement = newCard.generateCard();
+        }
+      })
+      const cardElement = newCard.generateCard();
       return cardElement;
     }
 

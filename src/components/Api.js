@@ -75,8 +75,8 @@ class Api {
   }
 
   // https://around.nomoreparties.co/v1/group-10/cards/likes/cardId
-  addLike(cardID) {
-    return fetch(this._baseUrl + "/cards/likes/" + cardID, {
+  addLike(cardId) {
+    return fetch(this._baseUrl + "/cards/likes/" + cardId, {
       headers: this._headers,
       method: "PUT",
     })
@@ -85,8 +85,8 @@ class Api {
   }
 
   //https://around.nomoreparties.co/v1/group-10/cards/likes/cardId
-  removeLike(cardID) {
-    return fetch(this._baseUrl + "/cards/likes/" + cardID, {
+  removeLike(cardId) {
+    return fetch(this._baseUrl + "/cards/likes/" + cardId, {
       headers: this._headers,
       method: "DELETE",
     })

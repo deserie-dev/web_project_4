@@ -17,17 +17,6 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  // renderLoading(buttonText = "Saving...") {
-  //   const saveButton = this._form.querySelector(".modal__form-submit");
-  //   saveButton.textContent = buttonText;
-  // }
-
-  // setButtonText(buttonText = "Save") {
-  //   const saveButton = this._form.querySelector(".modal__form-submit");
-  //   saveButton.textContent = buttonText;
-  // }
-
-
   openModal() {
     super.openModal();
     this._button.textContent = "Save";
