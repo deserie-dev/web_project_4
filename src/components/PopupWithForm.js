@@ -34,7 +34,6 @@ class PopupWithForm extends Popup {
 
   closeModal() {
     super.closeModal();
-    this.setButtonText();
   }
 
   setSubmitAction(action) {
