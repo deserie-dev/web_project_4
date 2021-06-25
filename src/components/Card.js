@@ -39,12 +39,12 @@ class Card {
 
 
     _showTrashIcon() {
-        if (!(this._userId === this._ownerId)) {
+        if (this._userId === this._ownerId) {
             this._card.querySelector(".elements__delete-button").classList.add("elements__delete-button_visible");
         }
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////            
     
     toggleLikeButton(likeButton) {
         likeButton.classList.toggle("elements__like_active");
@@ -85,6 +85,7 @@ class Card {
         this._cardImage = this._card.querySelector(".elements__image");
         this._cardImageTitle = this._card.querySelector(".elements__title");
         this._card.querySelector(".elements__like-counter").textContent = this._totalLikes; 
+        this._trashButton = this._card.querySelector(".elements__delete-button");
         
 
         this._cardImageTitle.textContent = this._name;

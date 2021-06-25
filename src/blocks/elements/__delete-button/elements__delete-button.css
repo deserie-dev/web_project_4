@@ -8,6 +8,7 @@
   width: 18px;
   height: 19.3px;
   background-color: transparent;
+  display: none;
 }
 
 .elements__delete-button:hover {
