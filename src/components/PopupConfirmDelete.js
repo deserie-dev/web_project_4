@@ -11,7 +11,6 @@ class PopupConfirmDelete extends Popup {
   openModal(evt, cardId) {
     super.openModal();
     this._cardId = cardId;
-    this._button.textContent = "Yes";
     this._card = evt.target.parentElement;
   }
 
@@ -19,7 +18,7 @@ class PopupConfirmDelete extends Popup {
     super.setEventListeners();
     this._form.addEventListener("submit", evt => {
       evt.preventDefault();
-      this._button.textContent = "Deleting ...";
+      this._button.textContent = "Deleting...";
       this._formSubmit(this._card, this._cardId);
     });
   }

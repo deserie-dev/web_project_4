@@ -7,7 +7,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupConfirmDelete from "../components/PopupConfirmDelete";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
-import renderLoading from "../../utils/utils.js";
 
 
 //Modals
@@ -21,9 +20,6 @@ const addButton = document.querySelector(".profile__add");
 const editAvatarButton = document.querySelector(".profile__image-edit");
 const profileCloseButton = profileModal.querySelector(".modal__close-button_profile");
 const imageCloseButton = document.querySelector(".modal__close-button_preview");
-const createBtn = document.querySelector(".modal__form-create");
-const editBtn = document.querySelector(".modal__form-save");
-const avatarBtn = document.querySelector(".modal__form-avatar");
 
 const placeCloseButton = document.querySelector(".modal__close-button_place");
 
@@ -125,12 +121,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     const editImageForm = new PopupWithForm({
       popupSelector: ".modal_type_create",
       formSubmit: (values) => {
-        renderLoading(true, createBtn);
         api.addCard({ name: values.titleInput, link: values.imageLinkInput })
           .then(cardData => {
             const cardElement = createCard(cardData);
             cards.addItem(cardElement);
-            renderLoading(false, createBtn);
+            editImageForm.closeModal();
           })
           .catch((err) => {
             console.log(err);
@@ -144,6 +139,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         api.editProfile({ name: values.profileNameInput, about: values.profileOccupationInput })
           .then((values) => {
             profileInfo.setUserInfo(values);
+            editProfileForm.closeModal();
           })
           .catch((err) => {
             console.log(err);
@@ -204,11 +200,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     const editAvatarModal = new PopupWithForm({
       popupSelector: ".modal_type_avatar",
       formSubmit: (values) => {
-        renderLoading(true, avatarBtn);
         api.editAvatar({ avatar: values.avatarInput })
           .then((values) => {
             profileInfo.setUserInfo({ name: values.name, about: values.about, avatar: values.avatar });
-            renderLoading(false, avatarBtn);
+            editAvatarModal.closeModal();
           })
           .catch((err) => {
             console.log(err);

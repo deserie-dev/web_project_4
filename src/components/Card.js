@@ -39,7 +39,7 @@ class Card {
 
 
     _showTrashIcon() {
-        if (this._userId === this._ownerId) {
+        if (this._userId !== this._ownerId) {
             this._card.querySelector(".elements__delete-button").classList.add("elements__delete-button_visible");
         }
     }
