@@ -1,6 +1,6 @@
 class Card {
 
-    constructor({ cardData, handleCardClick, handleDeleteCardClick, handleLikeCardClick }, userId) {
+    constructor({ cardData, handleCardClick, handleDeleteCardClick, handleLikeCardClick, userId }) {
         this._name = cardData.name;
         this._link = cardData.link;
         this._handleCardClick = handleCardClick;
@@ -38,8 +38,8 @@ class Card {
     }
 
 
-    _showTrashIcon() {
-        if (this._userId !== this._ownerId) {
+    showTrashIcon() {
+        if (  this._ownerId !== this._userId ) {
             this._card.querySelector(".elements__delete-button").classList.add("elements__delete-button_visible");
         }
     }
@@ -93,7 +93,7 @@ class Card {
         this._cardImage.alt = this._name;
 
         this._handleCardLikes();
-        this._showTrashIcon();
+        this.showTrashIcon();
         this._setEventListeners();
 
         return this._card;
