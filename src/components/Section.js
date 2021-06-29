@@ -11,7 +11,7 @@ class Section {
   }
 
   addItem(card) {
-    this._cardContainer.append(card);
+    this._cardContainer.prepend(card);
   }
 }
 

@@ -9,52 +9,21 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 
 
-//Modals
-const profileModal = document.querySelector(".modal_type_edit");
-const createForm = document.querySelector(".modal_type_create");
-const imageModalWindow = document.querySelector(".modal_type_preview");
-
 //Buttons
 const profileEditButton = document.querySelector(".profile__edit");
 const addButton = document.querySelector(".profile__add");
 const editAvatarButton = document.querySelector(".profile__image-edit");
-const profileCloseButton = profileModal.querySelector(".modal__close-button_profile");
-const imageCloseButton = document.querySelector(".modal__close-button_preview");
-
-const placeCloseButton = document.querySelector(".modal__close-button_place");
 
 //Forms
 const profileForm = document.querySelector(".modal__form_type_profile");
-const addForm = document.querySelector(".addCard-form");
 
 //Form Inputs
 const formName = profileForm.querySelector(".modal__form-control_input_name");
 const formAbout = profileForm.querySelector(".modal__form-control_input_occupation");
-const formTitle = document.querySelector(".modal__form-control_input_title");
-const formImage = document.querySelector(".modal__form-control_input_image");
 
 //Profile Section Info
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__occupation");
-
-const profileAvatarInput = document.querySelector(".profile__image");
-
-//New Place Info
-const placeTitle = document.querySelector(".placeTitle");
-const placeLink = document.querySelector(".placeLink");
-
-//Variables for the add new card/place section
-const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
-
-//Image Preview modal
-const imagePreviewModal = imageModalWindow.querySelector(".modal__image");
-const imagePreviewModalText = imageModalWindow.querySelector(".modal__image-title");
-
-//Elements/cards section in HTML where card template is appended to.
-const list = document.querySelector(".elements__container");
-
-//Variable for modal overlays. Used with forEach method to enable users to close modals by clicking anywhere outside a modal
-const modalOverlays = Array.from(document.getElementsByClassName("modal"));
 
 //Modal to preview images
 const imagePopup = new PopupWithImage(".modal_type_preview");

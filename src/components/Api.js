@@ -4,13 +4,16 @@ class Api {
     this._headers = headers;
   }
 
+  _checkResponse(res) {
+    return res.ok ? res.json() : Promise.reject("Error!" + res.statusText);
+  }
+
   // GET https://around.nomoreparties.co/v1/group-10/cards
   getInitialCards() {
     return fetch(this._baseUrl + "/cards", {
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Failed to get initial cards!" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   // https://around.nomoreparties.co/v1/group-10/users/me
@@ -19,8 +22,7 @@ class Api {
       method: "GET",
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Failed to get user info !" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   // https://around.nomoreparties.co/v1/group-10/cards
@@ -33,8 +35,7 @@ class Api {
         link
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Add card operation failed!" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   // https://around.nomoreparties.co/v1/group-10/cards/cardId
@@ -43,8 +44,7 @@ class Api {
       headers: this._headers,
       method: "DELETE",
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Failed to delete selected card" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   // https://around.nomoreparties.co/v1/group-10/users/me
@@ -57,8 +57,7 @@ class Api {
         about
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Failed to update user info!" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   // https://around.nomoreparties.co/v1/group-10/users/me/avatar/
@@ -70,8 +69,7 @@ class Api {
         avatar: avatar,
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Failed to update profile picture!" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   // https://around.nomoreparties.co/v1/group-10/cards/likes/cardId
@@ -80,8 +78,7 @@ class Api {
       headers: this._headers,
       method: "PUT",
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Error!" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
   //https://around.nomoreparties.co/v1/group-10/cards/likes/cardId
@@ -90,8 +87,7 @@ class Api {
       headers: this._headers,
       method: "DELETE",
     })
-      .then(res => res.ok ? res.json() : Promise.reject("Error!" + res.statusText))
-      .catch(err => console.log(err))
+      .then(this._checkResponse)
   }
 
 
