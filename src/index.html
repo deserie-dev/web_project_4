@@ -17,8 +17,12 @@
     <main class="content">
 
       <section class="profile">
-        <div class="profile__image-edit"></div>
-        <img class="profile__image" src="#" alt="Profile Picture">
+        
+        <div class="profile__avatar">
+          <img class="profile__image" src="<%=require('./images/jacquescousteau.jpg')%>" alt="Profile Picture">
+          <button class="profile__image-edit"></button>
+        </div>
+
         <div class="profile__content">
           <div class="profile__details">
             <h1 class="profile__name"></h1>
@@ -108,7 +112,7 @@
     <template class="card-template">
       <li id = "cardElement" class="elements__item">
         <img class="elements__image" src="#" alt="Place image">
-        <button class="elements__delete-button" type="button" aria-label="delete button"></button>
+        <button class="elements__delete-button" type="button"></button>
         <div class="elements__heading">
           <h2 class="elements__title"></h2>
           <div class="elements__like-container">

@@ -2,12 +2,14 @@
   background: url(../../../images/deleteButton.svg);
   border: none;
   background-repeat: no-repeat;
+  cursor: pointer;
   position: absolute;
   padding: 0px 0px 0px 0px;
   margin: 18px -30px;
   width: 18px;
   height: 19.3px;
   background-color: transparent;
+  /* display: none; */
 }
 
 .elements__delete-button:hover {

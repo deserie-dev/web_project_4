@@ -104,7 +104,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       avatar: ".profile__image"
     });
     profileInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, avatar: userInfo.avatar });
-  
+    profileInfo.userId = userInfo._id;
 
     const cards = new Section({
       items: initialCards,
@@ -189,7 +189,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
                 console.log(err);
               });
           }
-        }
+        },
+        userId: profileInfo.userId,
       })
       const cardElement = newCard.generateCard();
       return cardElement;
