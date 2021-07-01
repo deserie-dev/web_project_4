@@ -1,6 +1,6 @@
 class Card {
 
-    constructor({ cardData, handleCardClick, handleDeleteCardClick, handleLikeCardClick, userId }) {
+    constructor({ cardData, handleCardClick, handleDeleteCardClick, handleLikeCardClick, userId, cardTemplateSelector }) {
         this._name = cardData.name;
         this._link = cardData.link;
         this._id = cardData._id;
@@ -14,17 +14,14 @@ class Card {
         this._ownerId = cardData.owner._id;
         this._owner = cardData.owner;
         this._likesArray = cardData.likes;
+        this._cardTemplateSelector = cardTemplateSelector;
     }
 
-    _handleImagePreview() {
-        const imageModal = document.querySelector(".modal_type_preview");
-        const modalImage = imageModal.querySelector(".modal__image");
-        const modalImageCaption = imageModal.querySelector(".modal__image-title");
-        modalImage.src = this._link;
-        modalImage.alt = this._name;
-        modalImageCaption.textContent = this._name;
-        openModal(imageModal);
-    }
+    _getTemplate() {
+        const cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".elements__item");
+
+        return cardTemplate;
+    } 
 
     _getId() {
         return this._id;
@@ -75,8 +72,7 @@ class Card {
     }    
 
     generateCard() {
-        const cardTemplate = document.querySelector(".card-template").content.querySelector(".elements__item");
-        this._card = cardTemplate.cloneNode(true);
+        this._card = this._getTemplate().cloneNode(true);
         this._cardImage = this._card.querySelector(".elements__image");
         this._cardImageTitle = this._card.querySelector(".elements__title");
         this._card.querySelector(".elements__like-counter").textContent = this._totalLikes; 

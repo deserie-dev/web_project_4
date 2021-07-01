@@ -12,14 +12,14 @@ class FormValidator {
   }
 
   _showInputError(input) {
-    const errorMessage = document.querySelector(`#${input.id}-error`); 
+    const errorMessage = this._formElement.querySelector(`#${input.id}-error`); 
     errorMessage.textContent = input.validationMessage;
     errorMessage.classList.add(this._errorClass);
     input.classList.add(this._inputErrorClass);
   }
 
   _hideInputError(input) {
-    const errorMessage = document.querySelector(`#${input.id}-error`); 
+    const errorMessage = this._formElement.querySelector(`#${input.id}-error`); 
     errorMessage.textContent = ""
     errorMessage.classList.remove(this._errorClass);
     input.classList.remove(this._inputErrorClass);
@@ -45,6 +45,13 @@ class FormValidator {
       button.disabled = true;
     }
   }
+
+  resetValidation() {
+        this._toggleButtonState();
+        this._inputs.forEach((input) => {
+            this._hideInputError(input)
+        });
+    }
 
   _setEventListeners() {
     const inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
