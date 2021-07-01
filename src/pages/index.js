@@ -85,13 +85,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       popupSelector: ".modal_type_delete",
       formSubmit: (card, cardId) => {
         api.deleteCard(cardId)
-         .then(() => {
+        .then(() => {
           card.remove(cardId);
           confirmDeleteModal.closeModal();
         })
         .catch((err) => {
-            console.log(err);
-          });
+          console.log(err);
+        });
       }
     });
   
@@ -163,6 +163,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     editAvatarButton.addEventListener("click", function () {
       editAvatarModal.openModal();
+      avatarFormValidator.resetValidation();
     });
 
     addButton.addEventListener("click", function () {
@@ -175,7 +176,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       const { name, about } = profileInfo.getUserInfo();
       formName.value = name;
       formAbout.value = about;
+      editFormValidator.resetValidation();
     })
+
+
   })
   .catch((err) => {
     console.log(err);
